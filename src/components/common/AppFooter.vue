@@ -6,9 +6,13 @@
   </v-footer>
 </template>
 
-<script type = "text/javascript" >
+<script lang="ts" >
 
-export default {
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class AppFooter extends Vue {
 };
 </script>
 <style>

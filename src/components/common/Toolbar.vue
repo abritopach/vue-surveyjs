@@ -4,9 +4,13 @@
     </v-toolbar>
 </template>
 
-<script type = "text/javascript" >
+<script lang="ts" >
 
-export default {
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class Toolbar extends Vue {
 };
 </script>
 <style>

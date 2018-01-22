@@ -22,22 +22,28 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+ 
+import Vue from 'vue' 
+import Component from 'vue-class-component'
+import Toolbar from './components/common/Toolbar.vue'  
+import AppFooter from './components/common/AppFooter.vue'
 
-import Toolbar from './components/common/Toolbar'  
-import AppFooter from './components/common/AppFooter'  
-
-export default {
-  name: 'app',
+@Component({
   components: {
     // Add a reference to the Toolbar component in the components property.
     Toolbar,
     AppFooter
-  },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  }
+})
+
+export default class App extends Vue {
+
+  msg: string;
+
+  constructor() {
+    super();
+    this.msg = 'Welcome to Your Vue.js App';
   }
 }
 </script>
