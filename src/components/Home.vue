@@ -28,6 +28,7 @@
               </v-list-tile-content>
             </v-list-tile>
         </v-list>
+        <v-progress-circular indeterminate color="primary" v-if="showProgress"></v-progress-circular>
       </v-card>
     </v-flex>
   </v-layout>
@@ -44,6 +45,7 @@ export default class Home extends Vue {
   items: any = [];
   archiveSurveys: any = [];
   avatarIcon: string = 'http://www.redcresearch.ie/wp-content/uploads/2015/12/30.png';
+  showProgress: boolean = true;
 
   constructor() {
     super();
@@ -55,6 +57,7 @@ export default class Home extends Vue {
     surveyService.getActiveSurveys().then(response => {
       //console.log(response.data);
       this.items = response.data;
+      this.showProgress = false;
     })
   }
 
