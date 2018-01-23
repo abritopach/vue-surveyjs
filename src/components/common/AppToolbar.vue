@@ -1,6 +1,6 @@
 <template>
     <v-toolbar class="teal accent-3">
-        <v-toolbar-title class="white--text">Vue & SurveyJS</v-toolbar-title>
+        <v-toolbar-title class="white--text">Vue.js & Survey.js</v-toolbar-title>
     </v-toolbar>
 </template>
 
