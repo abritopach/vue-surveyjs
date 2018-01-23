@@ -5,7 +5,7 @@
         <!-- Active surveys. -->
         <v-list two-line subheader>
             <v-subheader inset>Active surveys</v-subheader>
-            <v-list-tile avatar v-bind:key="item.Name" v-for="item in items">
+            <v-list-tile avatar v-bind:key="item.Name" v-for="item in items" @click="selectedSurvey(item)">
               <v-list-tile-avatar>
                 <img v-bind:src="avatarIcon">
               </v-list-tile-avatar>
@@ -63,6 +63,11 @@ export default class Home extends Vue {
       //console.log(response.data);
       this.archiveSurveys = response.data;
     })
+  }
+
+  selectedSurvey(item: any) {
+    console.log(item);
+    this.$router.push({ path: '/surveyDetails/' + item.Id})
   }
 };
 </script>

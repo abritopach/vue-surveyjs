@@ -4,7 +4,7 @@
     <app-toolbar></app-toolbar>
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
-    <home></home>
+    <router-view></router-view>
     <app-footer></app-footer>
   </div>
 </template>
@@ -15,14 +15,12 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import AppToolbar from './components/common/AppToolbar.vue'  
 import AppFooter from './components/common/AppFooter.vue'
-import Home from './components/Home.vue'
 
 @Component({
   components: {
     // Add a reference to the Toolbar component in the components property.
     AppToolbar,
-    AppFooter,
-    Home
+    AppFooter
   }
 })
 
