@@ -5,7 +5,7 @@
         <!-- Active surveys. -->
         <v-list two-line subheader>
             <v-subheader inset>Active surveys</v-subheader>
-            <v-list-tile avatar v-bind:key="item.Name" v-for="item in items" @click="selectedSurvey(item)">
+            <v-list-tile avatar v-bind:key="item.Name" v-for="item in activeSurveys" @click="selectedSurvey(item)">
               <v-list-tile-avatar>
                 <img v-bind:src="avatarIcon">
               </v-list-tile-avatar>
@@ -36,27 +36,52 @@
 
 <script lang="ts" >
 
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { surveyService } from '../services/survey.service'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { surveyService } from '../services/survey.service';
+import { State, Getter, Action } from 'vuex-class';
+import { Surveys } from '../types';
 
 @Component
 export default class Home extends Vue {
-  items: any = [];
-  archiveSurveys: any = [];
+  //activeSurveys: any = [];
+  //archiveSurveys: any = [];
   avatarIcon: string = 'http://www.redcresearch.ie/wp-content/uploads/2015/12/30.png';
   showProgress: boolean = true;
+  @State('activeSurveys') activeSurveys: Surveys[];
+  @State('archiveSurveys') archiveSurveys: Surveys[];
+  //@Getter('activeSurveys') activeSurveys: Surveys[];
+  //@Action('FETCH_ACTIVE_SURVEYS') actionFetchActiveSurveys: any;
+  //@Action('FETCH_ARCHIVE_SURVEYS') actionFetchArchiveSurveys: any;
+  @Action('FETCH_SURVEYS') actionFetchSurveys: any;
 
   constructor() {
     super();
-    this.getActiveSurveys();
-    this.getArchiveSurveys();
+    //this.getActiveSurveys();
+    //this.getArchiveSurveys();
+    //this.getSurveys();
+    //this.actionFetchActiveSurveys();
+    //this.actionFetchArchiveSurveys();
+    this.actionFetchSurveys({ self: this });
+  }
+
+  /*
+  getSurveys() {
+    Promise.all([
+      surveyService.getActiveSurveys(),
+      surveyService.getArchiveSurveys()
+    ]).then(response => {
+      //console.log(response);
+      this.activeSurveys = response[0].data;
+      this.archiveSurveys = response[1].data;
+      this.showProgress = false;
+    });
   }
 
   getActiveSurveys() {
     surveyService.getActiveSurveys().then(response => {
       //console.log(response.data);
-      this.items = response.data;
+      this.activeSurveys = response.data;
       this.showProgress = false;
     })
   }
@@ -66,6 +91,10 @@ export default class Home extends Vue {
       //console.log(response.data);
       this.archiveSurveys = response.data;
     })
+    */
+
+  hiddenProgress() {
+    this.showProgress = false;
   }
 
   selectedSurvey(item: any) {

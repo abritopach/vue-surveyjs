@@ -16,7 +16,9 @@
     "vue-class-component": "^6.1.2",
     "vue-property-decorator": "^6.0.0",
     "vue-router": "^3.0.1",
-    "vuetify": "^0.17.6"
+    "vuetify": "^0.17.6",
+    "vuex": "^3.0.1",
+    "vuex-class": "^0.3.0"
   },
   "browserslist": [
     "> 1%",
