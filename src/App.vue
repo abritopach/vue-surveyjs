@@ -30,7 +30,7 @@ export default class App extends Vue {
 
   constructor() {
     super();
-    this.msg = 'Welcome to Your Vue.js & Survey.js App';
+    this.msg = 'Welcome to Your Vue.js (Vuetify.js, Vuex) & Survey.js App';
   }
 }
 </script>
