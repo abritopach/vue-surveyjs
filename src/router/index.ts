@@ -10,12 +10,14 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: { showBackButton: false, showFabCreate: true }
     },
     {
         path: '/surveyDetails/:surveyId',
         name: 'Survey Details',
         component: SurveyDetails,
+        meta: { showBackButton: true }
       }
   ]
 })

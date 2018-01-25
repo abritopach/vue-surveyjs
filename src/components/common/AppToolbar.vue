@@ -1,12 +1,10 @@
 <template>
     <v-toolbar class="teal accent-3">
-        <!--
-        <v-btn v-if="backArrow || false" icon class="hidden-xs-only">
-            <v-icon>arrow_back</v-icon>
+        <v-btn v-if="showBackButton()" icon @click.native.stop="onClickBackButton()">
+            <v-icon class="white--text">arrow_back</v-icon>
         </v-btn>
-        -->
         <v-toolbar-title class="white--text">Vue.js & Survey.js</v-toolbar-title>
-        <v-btn fab small color="red darken-1" bottom right absolute @click.native.stop="onClickCreateSurvey()">
+        <v-btn v-if="showFabCreate()" fab small color="red darken-1" bottom right absolute @click.native.stop="onClickCreateSurvey()">
             <v-icon class="white--text">add</v-icon>
         </v-btn>
         <app-dialog title="Create Survey" message="¿Are you sure to create new survey?"></app-dialog>
@@ -28,9 +26,22 @@ import EventBus from '../../event.bus'
 })
 export default class Toolbar extends Vue {
 
+    showBackButton() {
+        return this.$route.meta.showBackButton;
+    }
+
+    showFabCreate() {
+        return this.$route.meta.showFabCreate;
+    }
+
     onClickCreateSurvey() {
         console.log('onClickCreateSurvey');
         EventBus.$emit('SHOW_DIALOG', true);
+    }
+
+    onClickBackButton() {
+        console.log("onClickBackButton");
+        this.$router.go(-1);
     }
 };
 </script>
