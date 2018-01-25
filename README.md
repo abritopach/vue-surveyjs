@@ -11,6 +11,7 @@ Technologies: Vue.js, Vuetify.js, Vuex, Typescript
 This project shows you how to:
 
     * Integrate SurveyJS in Vue APP.
+    * Create new Survey using SurveyJS API dxsurvey.com/api (get request).
     * Show list with active surveys using SurveyJS API dxsurvey.com/api (get request).
     * Show list with archive surveys using SurveyJS API dxsurvey.com/api (get request).
 

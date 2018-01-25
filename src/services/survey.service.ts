@@ -19,6 +19,11 @@ class SurveyService {
     getArchiveSurveys() {
         return axios.get(this.api + 'getArchive?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey);
     }
+
+    // Create a new survey.
+    createSurvey(name: string) {
+        return axios.get(this.api + 'create?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey + '&name=' + encodeURI(name));
+    }
 }
 
 // Export a singleton instance in the global namespace.

@@ -1,11 +1,17 @@
 <template>
   <div id="app">
+    <v-app>
     <!-- Render the Toolbar component. -->
     <app-toolbar></app-toolbar>
-    <img src="./assets/logo.png">
+    <v-card-text>
+      <img src="./assets/logo.png" width="200" height="200" class="text-xs-center">
+    </v-card-text>
     <h1>{{ msg }}</h1>
     <router-view></router-view>
+    <br>
+    <!-- Render the Footer component. -->
     <app-footer></app-footer>
+    </v-app>
   </div>
 </template>
 

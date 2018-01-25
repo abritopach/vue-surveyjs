@@ -48,6 +48,15 @@ const actions: ActionTree<State, any> = {
             self.hiddenProgress();
             commit("FETCH_SURVEYS_MUTATION", response);
           });
+    },
+    CREATE_SURVEY: function({commit}) {
+        surveyService.createSurvey("New Survey :)")
+        .then((response) => {
+            commit("CREATE_SURVEY_MUTATION", response.data);
+        })
+        .catch((error => {
+            console.log(error.statusText)
+        }))
     }
 }
 
@@ -63,6 +72,9 @@ const mutations: MutationTree<State> = {
     FETCH_SURVEYS_MUTATION(state, surveys) {
         state.activeSurveys = surveys[0].data,
         state.archiveSurveys = surveys[1].data
+    },
+    CREATE_SURVEY_MUTATION(state, survey) {
+        state.activeSurveys.unshift(survey);
     }
 }
 
