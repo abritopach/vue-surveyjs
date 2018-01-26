@@ -47,6 +47,9 @@ const actions: ActionTree<State, any> = {
             //console.log(response);
             self.hiddenProgress();
             commit("FETCH_SURVEYS_MUTATION", response);
+          }).catch(err => {
+            self.hiddenProgress();
+            console.log(err.message);
           });
     },
     CREATE_SURVEY: function({commit}) {
