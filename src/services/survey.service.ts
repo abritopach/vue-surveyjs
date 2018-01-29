@@ -3,8 +3,8 @@ import axios from 'axios';
 class SurveyService {
 
     private readonly api = 'https://dxsurvey.com/api/MySurveys/';
-    private readonly ownerId: string = encodeURI("ownerId");
-    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
+    private readonly accessKey: string = "0049f79b12874db38781eef1b6f0b30c";
 
     constructor() {
         console.log("Hello SurveyService");
@@ -23,6 +23,11 @@ class SurveyService {
     // Create a new survey.
     createSurvey(name: string) {
         return axios.get(this.api + 'create?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey + '&name=' + encodeURI(name));
+    }
+
+    // Returns survey results.
+    getSurveyResults(idSurvey: any) {
+        return axios.get(this.api + 'getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey);
     }
 }
 

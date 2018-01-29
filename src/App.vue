@@ -23,6 +23,7 @@ import AppToolbar from './components/common/AppToolbar.vue'
 import AppFooter from './components/common/AppFooter.vue'
 
 @Component({
+  name: 'app',
   components: {
     // Add a reference to the Toolbar component in the components property.
     AppToolbar,
@@ -38,6 +39,7 @@ export default class App extends Vue {
     super();
     this.msg = 'Welcome to Your Vue.js (Vuetify.js, Vuex) & Survey.js App';
   }
+
 }
 </script>
 

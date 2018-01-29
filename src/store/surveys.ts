@@ -10,7 +10,8 @@ const state: State = {
         ResultId: "e49e3372-8719-40c9-9141-918523e7376d", StoreIPAddress: false, UseCookies: false, UserId: "9ba6421d-feb1-4aa6-8ff9-beaf51b5b6a8", Image: ""}
         */
     ],
-    archiveSurveys: []
+    archiveSurveys: [],
+    surveyResults: []
 }
 
 const getters: GetterTree<State, any> = {
@@ -60,7 +61,19 @@ const actions: ActionTree<State, any> = {
         .catch((error => {
             console.log(error.statusText)
         }))
-    }
+    },
+    FETCH_SURVEY_RESULTS: function({ commit }, {idSurvey, self}) {
+        surveyService.getSurveyResults(idSurvey)
+        .then((response) => {
+            console.log(response);
+            self.hiddenProgress();
+            commit("FETCH_SURVEY_RESULTS_MUTATION", response.data);
+        })
+        .catch((error => {
+            self.hiddenProgress();
+            console.log(error.statusText)
+        }))
+    },
 }
 
 const mutations: MutationTree<State> = {
@@ -78,7 +91,10 @@ const mutations: MutationTree<State> = {
     },
     CREATE_SURVEY_MUTATION(state, survey) {
         state.activeSurveys.unshift(survey);
-    }
+    },
+    FETCH_SURVEY_RESULTS_MUTATION(state, results) {
+        state.surveyResults = results.data;
+    },
 }
 
 export const surveys = {

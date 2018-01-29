@@ -1,7 +1,8 @@
 // Store
 export interface State {
     activeSurveys: Surveys[],
-    archiveSurveys: Surveys[]
+    archiveSurveys: Surveys[],
+    surveyResults: any[]
 }
 
 // Models
