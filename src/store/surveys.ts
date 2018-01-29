@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree, Mutation } from 'vuex';
-import { State } from '../types';
+import { State, SurveyResultsModel } from '../types';
 import { surveyService } from '../services/survey.service';
 
 const state: State = {
@@ -93,7 +93,7 @@ const mutations: MutationTree<State> = {
         state.activeSurveys.unshift(survey);
     },
     FETCH_SURVEY_RESULTS_MUTATION(state, results) {
-        state.surveyResults = results.data;
+        state.surveyResults = SurveyResultsModel.fromJSONArray(results.Data);
     },
 }
 
