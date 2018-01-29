@@ -65,7 +65,6 @@ const actions: ActionTree<State, any> = {
     FETCH_SURVEY_RESULTS: function({ commit }, {idSurvey, self}) {
         surveyService.getSurveyResults(idSurvey)
         .then((response) => {
-            console.log(response);
             self.hiddenProgress();
             commit("FETCH_SURVEY_RESULTS_MUTATION", response.data);
         })

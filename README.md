@@ -14,6 +14,7 @@ This project shows you how to:
     * Create new Survey using SurveyJS API dxsurvey.com/api (get request).
     * Show list with active surveys using SurveyJS API dxsurvey.com/api (get request).
     * Show list with archive surveys using SurveyJS API dxsurvey.com/api (get request).
+    * Get survey results using SurveyJS API dxsurvey.com/api (get request).
 
 ## Configuration
 

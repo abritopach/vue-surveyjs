@@ -42,18 +42,18 @@ export default class Toolbar extends Vue {
     }
 
     onClickCreateSurvey() {
-        console.log('onClickCreateSurvey');
+        //console.log('onClickCreateSurvey');
         EventBus.$emit('SHOW_DIALOG', true);
     }
 
     onClickGetSurveyResults() {
-        console.log("onClickGetSurveyResults");
-        console.log(this.$route.params.surveyId);
+        //console.log("onClickGetSurveyResults");
+        //console.log(this.$route.params.surveyId);
         this.$router.push({ path: `/surveyResults/${this.$route.params.surveyId}` });
     }
 
     onClickBackButton() {
-        console.log("onClickBackButton");
+        //console.log("onClickBackButton");
         this.$router.go(-1);
     }
 };
