@@ -59,9 +59,22 @@ const actions: ActionTree<State, any> = {
     ARCHIVE_SURVEY: function({commit}, {survey, self}) {
         surveyService.archiveSurvey(survey.Id)
         .then((response) => {
+            self.hiddenProgress();
             commit("ARCHIVE_SURVEY_MUTATION", {response: response, survey: survey});
         })
         .catch((error => {
+            self.hiddenProgress();
+            console.log(error.statusText)
+        }))
+    },
+    RESTORE_SURVEY: function({commit}, {survey, self}) {
+        surveyService.restoreSurvey(survey.Id)
+        .then((response) => {
+            self.hiddenProgress();
+            commit("RESTORE_SURVEY_MUTATION", {response: response, survey: survey});
+        })
+        .catch((error => {
+            self.hiddenProgress();
             console.log(error.statusText)
         }))
     },
@@ -95,9 +108,16 @@ const mutations: MutationTree<State> = {
         state.activeSurveys.unshift(survey);
     },
     ARCHIVE_SURVEY_MUTATION(state, payload) {
-        console.log("ARCHIVE_SURVEY_MUTATION", payload.survey);
-        state.archiveSurveys.unshift(payload.survey);
-        state.activeSurveys = state.activeSurveys.filter(e => e.Id !== payload.survey.Id);;
+        if (payload.response.statusText = "OK") {
+            state.archiveSurveys.unshift(payload.survey);
+            state.activeSurveys = state.activeSurveys.filter(e => e.Id !== payload.survey.Id);
+        }
+    },
+    RESTORE_SURVEY_MUTATION(state, payload) {
+        if (payload.response.statusText = "OK") {
+            state.activeSurveys.unshift(payload.survey);
+            state.archiveSurveys = state.archiveSurveys.filter(e => e.Id !== payload.survey.Id);
+        }
     },
     FETCH_SURVEY_RESULTS_MUTATION(state, results) {
         state.surveyResults = SurveyResultsModel.fromJSONArray(results.Data);

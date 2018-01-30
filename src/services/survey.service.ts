@@ -34,6 +34,11 @@ class SurveyService {
     archiveSurvey(idSurvey: any) {
         return axios.get(this.api + 'archive/' + idSurvey + '?accessKey=' + this.accessKey);
     }
+
+    // Restore an archive survey by it's id.
+    restoreSurvey(idSurvey: any) {
+        return axios.get(this.api + 'restore/' + idSurvey + '?accessKey=' + this.accessKey);
+    }
 }
 
 // Export a singleton instance in the global namespace.
