@@ -5,28 +5,55 @@
         <!-- Active surveys. -->
         <v-list two-line subheader>
             <v-subheader inset>Active surveys</v-subheader>
-            <v-list-tile avatar v-bind:key="item.Name" v-for="item in activeSurveys" @click="selectedSurvey(item)">
-              <v-list-tile-avatar>
-                <img v-bind:src="avatarIcon">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.Name}}</v-list-tile-title>
-                <v-list-tile-sub-title><v-icon>alarm</v-icon> {{item.CreatedAt | formatDate}}</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
+            <v-list-group v-bind:key="item.Name" v-for="item in activeSurveys">
+              <v-list-tile avatar slot="item" @click="">
+              <!--<v-list-tile avatar v-bind:key="item.Name" v-for="item in activeSurveys" @click="selectedSurvey(item)">-->
+                <v-list-tile-avatar>
+                  <img v-bind:src="item.Image">
+                </v-list-tile-avatar>
+                <v-list-tile-content @click="selectedSurvey(item)">
+                  <v-list-tile-title>{{item.Name}}</v-list-tile-title>
+                  <v-list-tile-sub-title><v-icon>alarm</v-icon> {{item.CreatedAt | formatDate}}</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-icon>keyboard_arrow_down</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+              <v-list-tile v-for="action in actionsActiveSurveys" v-bind:key="action.title" @click="">
+                <v-list-tile-content>
+                  <v-list-tile-title @click="onClickAction(action.title, item)">{{ action.title }}</v-list-tile-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-icon>{{ action.icon }}</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list-group>
         </v-list>
         <!-- Archive surveys. -->
         <v-list two-line subheader>
             <v-subheader inset>Archive surveys</v-subheader>
-            <v-list-tile avatar v-bind:key="item.Name" v-for="item in archiveSurveys">
-              <v-list-tile-avatar>
-                <img v-bind:src="avatarIcon">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.Name}}</v-list-tile-title>
-                <v-list-tile-sub-title><v-icon>alarm</v-icon> {{item.CreatedAt | formatDate}}</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
+            <v-list-group v-bind:key="item.Name" v-for="item in archiveSurveys">
+              <v-list-tile avatar slot="item" @click="">
+                <v-list-tile-avatar>
+                  <img v-bind:src="item.Image">
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{item.Name}}</v-list-tile-title>
+                  <v-list-tile-sub-title><v-icon>alarm</v-icon> {{item.CreatedAt | formatDate}}</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-icon>keyboard_arrow_down</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+               <v-list-tile v-for="action in actionsArchiveSurveys" v-bind:key="action.title" @click="">
+                <v-list-tile-content>
+                  <v-list-tile-title @click="onClickAction(action.title, item)">{{ action.title }}</v-list-tile-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-icon>{{ action.icon }}</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list-group>
         </v-list>
         <v-progress-circular indeterminate color="primary" v-if="showProgress"></v-progress-circular>
       </v-card>
@@ -40,20 +67,21 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { surveyService } from '../services/survey.service';
 import { State, Getter, Action } from 'vuex-class';
-import { Surveys } from '../types';
+import { SurveyModel } from '../types';
 
 @Component
 export default class Home extends Vue {
   //activeSurveys: any = [];
   //archiveSurveys: any = [];
-  avatarIcon: string = 'http://www.redcresearch.ie/wp-content/uploads/2015/12/30.png';
   showProgress: boolean = true;
-  @State('activeSurveys') activeSurveys: Surveys[];
-  @State('archiveSurveys') archiveSurveys: Surveys[];
+  @State('activeSurveys') activeSurveys: SurveyModel[];
+  @State('archiveSurveys') archiveSurveys: SurveyModel[];
   //@Getter('activeSurveys') activeSurveys: Surveys[];
   //@Action('FETCH_ACTIVE_SURVEYS') actionFetchActiveSurveys: any;
   //@Action('FETCH_ARCHIVE_SURVEYS') actionFetchArchiveSurveys: any;
   @Action('FETCH_SURVEYS') actionFetchSurveys: any;
+  actionsActiveSurveys: any = [];
+  actionsArchiveSurveys: any = [];
 
   constructor() {
     super();
@@ -63,6 +91,16 @@ export default class Home extends Vue {
     //this.actionFetchActiveSurveys();
     //this.actionFetchArchiveSurveys();
     this.actionFetchSurveys({ self: this });
+    this.actionsActiveSurveys = [
+          { action: 'archive', title: 'Archive', icon: 'lock_outline'},
+          { action: 'edit', title: 'Edit', icon: 'mode_edit'},
+          { action: 'delete', title: 'Delete', icon: 'delete'}
+    ];
+    this.actionsArchiveSurveys = [
+          { action: 'active', title: 'Active', icon: 'lock_open'},
+          { action: 'edit', title: 'Edit', icon: 'mode_edit'},
+          { action: 'delete', title: 'Delete', icon: 'delete'}
+    ];
   }
 
   /*
@@ -100,6 +138,10 @@ export default class Home extends Vue {
   selectedSurvey(item: any) {
     console.log(item);
     this.$router.push({ path: '/surveyDetails/' + item.Id})
+  }
+
+  onClickAction(action: any, survey: any) {
+    console.log("onClickAction", action, survey);
   }
 };
 </script>
