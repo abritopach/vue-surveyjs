@@ -29,6 +29,11 @@ class SurveyService {
     getSurveyResults(idSurvey: any) {
         return axios.get(this.api + 'getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey);
     }
+
+    // Archive the survey by it's id. All survey results will be still accessible. You have to delete a survey to remove the access to it's results.
+    archiveSurvey(idSurvey: any) {
+        return axios.get(this.api + 'archive/' + idSurvey + '?accessKey=' + this.accessKey);
+    }
 }
 
 // Export a singleton instance in the global namespace.

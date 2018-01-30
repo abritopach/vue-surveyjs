@@ -1,5 +1,5 @@
 <template>
-   <v-dialog v-model="dialog" max-width="300px">
+   <v-dialog v-model="flagDialog" max-width="300px">
         <v-card>
           <v-card-title class="headline">
             {{ title }}
@@ -8,7 +8,7 @@
              {{ message }}
           </v-card-text>
         <v-card-actions>
-          <v-btn class="teal accent-3" flat @click.stop="dialog=false">CANCEL</v-btn>
+          <v-btn class="teal accent-3" flat @click.stop="flagDialog=false">CANCEL</v-btn>
           <v-btn class="teal accent-3" flat @click.stop="onClickAccept()">ACCEPT</v-btn>
           </v-card-actions>
         </v-card>
@@ -22,33 +22,46 @@ import Component from 'vue-class-component'
 import EventBus from '../../event.bus'
 import { Action } from 'vuex-class';
 
-@Component({
-  props: {
-    title: String,
-    message: String
-  }
-})
+@Component
 export default class AppDialog extends Vue {
-    dialog: boolean = false;
-      @Action('CREATE_SURVEY') actionCreateSurvey: any;
+    flagDialog: boolean = false;
+    @Action('CREATE_SURVEY') actionCreateSurvey: any;
+    @Action('ARCHIVE_SURVEY') actionArchiveSurvey: any;
+    title: string = '';
+    message: string = '';
+    action: string = '';
+    survey: any;
 
     constructor() {
         super();
 
-        EventBus.$on('SHOW_DIALOG', (showDialog: boolean) => {
-            //console.log('showDialog', showDialog);
-            this.showDialog();
+        EventBus.$on('SHOW_DIALOG', (dialog: any) => {
+            //console.log('dialog', dialog);
+            this.showDialog(dialog);
         });
     }
 
-    showDialog() {
-        this.dialog = true;
+    showDialog(dialog: any) {
+      this.title = dialog.title;
+      this.message = dialog.message;
+      this.action = dialog.action;
+      this.survey = dialog.survey;
+      this.flagDialog = true;
     }
 
     onClickAccept() {
-        //console.log("onClickAccept");
-        this.actionCreateSurvey();
-        this.dialog = false;
+        console.log("onClickAccept");
+        //console.log("action", this.action);
+        switch (this.action)
+        {
+          case "create":
+            this.actionCreateSurvey();
+            break;
+          case "archive":
+            this.actionArchiveSurvey({ survey: this.survey, self: this });
+            break;
+        }
+        this.flagDialog = false;
     }
 
 };

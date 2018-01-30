@@ -56,6 +56,15 @@ const actions: ActionTree<State, any> = {
             console.log(error.statusText)
         }))
     },
+    ARCHIVE_SURVEY: function({commit}, {survey, self}) {
+        surveyService.archiveSurvey(survey.Id)
+        .then((response) => {
+            commit("ARCHIVE_SURVEY_MUTATION", {response: response, survey: survey});
+        })
+        .catch((error => {
+            console.log(error.statusText)
+        }))
+    },
     FETCH_SURVEY_RESULTS: function({ commit }, {idSurvey, self}) {
         surveyService.getSurveyResults(idSurvey)
         .then((response) => {
@@ -84,6 +93,11 @@ const mutations: MutationTree<State> = {
     },
     CREATE_SURVEY_MUTATION(state, survey) {
         state.activeSurveys.unshift(survey);
+    },
+    ARCHIVE_SURVEY_MUTATION(state, payload) {
+        console.log("ARCHIVE_SURVEY_MUTATION", payload.survey);
+        state.archiveSurveys.unshift(payload.survey);
+        state.activeSurveys = state.activeSurveys.filter(e => e.Id !== payload.survey.Id);;
     },
     FETCH_SURVEY_RESULTS_MUTATION(state, results) {
         state.surveyResults = SurveyResultsModel.fromJSONArray(results.Data);

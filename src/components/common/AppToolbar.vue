@@ -10,7 +10,7 @@
         <v-btn v-if="showFabResults()" fab small color="red darken-1" bottom right absolute @click.native.stop="onClickGetSurveyResults()">
             <v-icon class="white--text">description</v-icon>
         </v-btn>
-        <app-dialog title="Create Survey" message="¿Are you sure to create new survey?"></app-dialog>
+        <app-dialog></app-dialog>
     </v-toolbar>
 </template>
 
@@ -43,7 +43,7 @@ export default class Toolbar extends Vue {
 
     onClickCreateSurvey() {
         //console.log('onClickCreateSurvey');
-        EventBus.$emit('SHOW_DIALOG', true);
+        EventBus.$emit('SHOW_DIALOG', {title: "Create Survey", message: "¿Are you sure to create new survey?", action: "create", show: true});
     }
 
     onClickGetSurveyResults() {

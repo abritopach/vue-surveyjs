@@ -21,7 +21,7 @@
               </v-list-tile>
               <v-list-tile v-for="action in actionsActiveSurveys" v-bind:key="action.title" @click="">
                 <v-list-tile-content>
-                  <v-list-tile-title @click="onClickAction(action.title, item)">{{ action.title }}</v-list-tile-title>
+                  <v-list-tile-title @click="onClickAction(action.action, item)">{{ action.title }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-icon>{{ action.icon }}</v-icon>
@@ -46,8 +46,8 @@
                 </v-list-tile-action>
               </v-list-tile>
                <v-list-tile v-for="action in actionsArchiveSurveys" v-bind:key="action.title" @click="">
-                <v-list-tile-content>
-                  <v-list-tile-title @click="onClickAction(action.title, item)">{{ action.title }}</v-list-tile-title>
+                <v-list-tile-content @click="onClickAction(action.action, item)">
+                  <v-list-tile-title>{{ action.title }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-icon>{{ action.icon }}</v-icon>
@@ -68,6 +68,7 @@ import Component from 'vue-class-component';
 import { surveyService } from '../services/survey.service';
 import { State, Getter, Action } from 'vuex-class';
 import { SurveyModel } from '../types';
+import EventBus from '../event.bus';
 
 @Component
 export default class Home extends Vue {
@@ -97,7 +98,7 @@ export default class Home extends Vue {
           { action: 'delete', title: 'Delete', icon: 'delete'}
     ];
     this.actionsArchiveSurveys = [
-          { action: 'active', title: 'Active', icon: 'lock_open'},
+          { action: 'activate', title: 'Activate', icon: 'lock_open'},
           { action: 'edit', title: 'Edit', icon: 'mode_edit'},
           { action: 'delete', title: 'Delete', icon: 'delete'}
     ];
@@ -136,13 +137,29 @@ export default class Home extends Vue {
   }
 
   selectedSurvey(item: any) {
-    console.log(item);
+    //console.log(item);
     this.$router.push({ path: '/surveyDetails/' + item.Id})
   }
 
   onClickAction(action: any, survey: any) {
-    console.log("onClickAction", action, survey);
+    //console.log("onClickAction", action, survey);
+    let dialogConfig = this.dialogConfig(action);
+    dialogConfig.survey = survey;
+    //console.log(dialogConfig);
+    EventBus.$emit('SHOW_DIALOG', dialogConfig);
   }
+
+  dialogConfig(action: any) {
+    console.log(action);
+    let options: any = {
+      delete: {title: 'Delete Survey', message: '¿Are you sure to delete the survey?', action: "delete", show: true},
+      activate: {title: 'Activate Survey', message: '¿Are you sure to activate the survey?', action: "activate", show: true},
+      archive: {title: 'Archive Survey', message: '¿Are you sure to archive the survey?', action: "archive", show: true},
+      edit: {title: 'Edit Survey', message: '¿Are you sure to update survey name?', action: "edit", show: true}
+    }
+    return options[action];
+    }
+
 };
 </script>
 <style>
