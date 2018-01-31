@@ -3,10 +3,13 @@
       <v-progress-circular indeterminate color="primary" v-if="showProgress"></v-progress-circular>
       <v-card>
         <v-card-title class="headline">
-          {{ title }}
+          {{ dialog.title }}
         </v-card-title>
         <v-card-text>
-            {{ message }}
+            {{ dialog.message }}
+            <v-flex xs12 v-if="dialog.inputText">
+              <v-text-field label="Name" v-model="newName" required></v-text-field>
+            </v-flex>
         </v-card-text>
       <v-card-actions>
         <v-btn class="teal accent-3" flat @click.stop="flagDialog=false">CANCEL</v-btn>
@@ -30,11 +33,10 @@ export default class AppDialog extends Vue {
     @Action('ARCHIVE_SURVEY') actionArchiveSurvey: any;
     @Action('RESTORE_SURVEY') actionRestoreSurvey: any;
     @Action('DELETE_SURVEY') actionDeleteSurvey: any;
-    title: string = '';
-    message: string = '';
-    action: string = '';
-    survey: any;
+    @Action('CHANGE_SURVEY_NAME') actionChangeSurveyName: any;
+    dialog: any = {};
     showProgress: boolean = false;
+    newName: string = '';
 
     constructor() {
         super();
@@ -46,10 +48,7 @@ export default class AppDialog extends Vue {
     }
 
     showDialog(dialog: any) {
-      this.title = dialog.title;
-      this.message = dialog.message;
-      this.action = dialog.action;
-      this.survey = dialog.survey;
+      this.dialog = dialog;
       this.flagDialog = true;
     }
 
@@ -57,19 +56,23 @@ export default class AppDialog extends Vue {
         //console.log("onClickAccept");
         //console.log("action", this.action);
         this.showProgress = true;
-        switch (this.action)
+        switch (this.dialog.action)
         {
           case "create":
             this.actionCreateSurvey({ self: this });
             break;
           case "archive":
-            this.actionArchiveSurvey({ survey: this.survey, self: this });
+            this.actionArchiveSurvey({ survey: this.dialog.survey, self: this });
             break;
           case "activate":
-            this.actionRestoreSurvey({ survey: this.survey, self: this });
+            this.actionRestoreSurvey({ survey: this.dialog.survey, self: this });
             break;
           case "delete":
-            this.actionDeleteSurvey({ survey: this.survey, self: this });
+            this.actionDeleteSurvey({ survey: this.dialog.survey, self: this });
+            break;
+          case "edit":
+            //console.log(this.newName);
+            this.actionChangeSurveyName({survey: this.dialog.survey, newName: this.newName, self: this});
             break;
         }
         this.flagDialog = false;

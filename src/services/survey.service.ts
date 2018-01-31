@@ -44,6 +44,11 @@ class SurveyService {
     deleteSurvey(idSurvey: any) {
         return axios.get(this.api + 'delete/' + idSurvey + '?accessKey=' + this.accessKey);
     }
+
+    // Change the survey name.
+    changeSurveyName(idSurvey: any, newName: any) {
+        return axios.get(this.api + 'changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName));
+    }
 }
 
 // Export a singleton instance in the global namespace.

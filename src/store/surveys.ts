@@ -91,6 +91,17 @@ const actions: ActionTree<State, any> = {
             console.log(error.statusText)
         }))
     },
+    CHANGE_SURVEY_NAME: function({commit}, {survey, newName, self}) {
+        surveyService.changeSurveyName(survey.Id, newName)
+        .then((response) => {
+            self.hiddenProgress();
+            commit("CHANGE_SURVEY_NAME_MUTATION", {response: response, survey: survey, newName: newName});
+        })
+        .catch((error => {
+            self.hiddenProgress();
+            console.log(error.statusText)
+        }))
+    },
     FETCH_SURVEY_RESULTS: function({ commit }, {idSurvey, self}) {
         surveyService.getSurveyResults(idSurvey)
         .then((response) => {
@@ -137,6 +148,12 @@ const mutations: MutationTree<State> = {
         if (payload.response.statusText = "OK") {
             state.activeSurveys = state.activeSurveys.filter(e => e.Id !== payload.survey.Id);
             state.archiveSurveys = state.archiveSurveys.filter(e => e.Id !== payload.survey.Id);
+        }
+    },
+    CHANGE_SURVEY_NAME_MUTATION(state, payload) {
+        console.log(payload);
+        if (payload.response.statusText = "OK") {
+            payload.survey.Name = payload.newName;
         }
     },
     FETCH_SURVEY_RESULTS_MUTATION(state, results) {

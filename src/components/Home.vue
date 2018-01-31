@@ -152,10 +152,10 @@ export default class Home extends Vue {
   dialogConfig(action: any) {
     //console.log(action);
     let options: any = {
-      delete: {title: 'Delete Survey', message: '¿Are you sure to delete the survey?', action: "delete", show: true},
-      activate: {title: 'Activate Survey', message: '¿Are you sure to activate the survey?', action: "activate", show: true},
-      archive: {title: 'Archive Survey', message: '¿Are you sure to archive the survey?', action: "archive", show: true},
-      edit: {title: 'Edit Survey', message: '¿Are you sure to update survey name?', action: "edit", show: true}
+      delete: {title: 'Delete Survey', message: '¿Are you sure to delete the survey?', action: "delete"},
+      activate: {title: 'Activate Survey', message: '¿Are you sure to activate the survey?', action: "activate"},
+      archive: {title: 'Archive Survey', message: '¿Are you sure to archive the survey?', action: "archive"},
+      edit: {title: 'Edit Survey', message: 'Enter the new name for the survey', action: "edit", inputText: 'Name'}
     }
     return options[action];
     }
