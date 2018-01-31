@@ -5,9 +5,9 @@
         <!-- Active surveys. -->
         <v-list two-line subheader>
             <v-subheader inset>Active surveys</v-subheader>
-            <v-list-group v-bind:key="item.Name" v-for="item in activeSurveys">
+            <v-list-group v-bind:key="item.Id" v-for="item in activeSurveys">
               <v-list-tile avatar slot="item" @click="">
-              <!--<v-list-tile avatar v-bind:key="item.Name" v-for="item in activeSurveys" @click="selectedSurvey(item)">-->
+              <!--<v-list-tile avatar v-bind:key="item.Id" v-for="item in activeSurveys" @click="selectedSurvey(item)">-->
                 <v-list-tile-avatar>
                   <img v-bind:src="item.Image">
                 </v-list-tile-avatar>
@@ -32,7 +32,7 @@
         <!-- Archive surveys. -->
         <v-list two-line subheader>
             <v-subheader inset>Archive surveys</v-subheader>
-            <v-list-group v-bind:key="item.Name" v-for="item in archiveSurveys">
+            <v-list-group v-bind:key="item.Id" v-for="item in archiveSurveys">
               <v-list-tile avatar slot="item" @click="">
                 <v-list-tile-avatar>
                   <img v-bind:src="item.Image">

@@ -39,6 +39,11 @@ class SurveyService {
     restoreSurvey(idSurvey: any) {
         return axios.get(this.api + 'restore/' + idSurvey + '?accessKey=' + this.accessKey);
     }
+
+    // Delete a survey by it's id. You will not be able to restore this survey. The survey results become inaccessible.
+    deleteSurvey(idSurvey: any) {
+        return axios.get(this.api + 'delete/' + idSurvey + '?accessKey=' + this.accessKey);
+    }
 }
 
 // Export a singleton instance in the global namespace.

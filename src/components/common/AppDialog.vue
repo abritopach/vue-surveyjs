@@ -29,6 +29,7 @@ export default class AppDialog extends Vue {
     @Action('CREATE_SURVEY') actionCreateSurvey: any;
     @Action('ARCHIVE_SURVEY') actionArchiveSurvey: any;
     @Action('RESTORE_SURVEY') actionRestoreSurvey: any;
+    @Action('DELETE_SURVEY') actionDeleteSurvey: any;
     title: string = '';
     message: string = '';
     action: string = '';
@@ -59,13 +60,16 @@ export default class AppDialog extends Vue {
         switch (this.action)
         {
           case "create":
-            this.actionCreateSurvey();
+            this.actionCreateSurvey({ self: this });
             break;
           case "archive":
             this.actionArchiveSurvey({ survey: this.survey, self: this });
             break;
           case "activate":
             this.actionRestoreSurvey({ survey: this.survey, self: this });
+            break;
+          case "delete":
+            this.actionDeleteSurvey({ survey: this.survey, self: this });
             break;
         }
         this.flagDialog = false;

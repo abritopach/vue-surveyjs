@@ -47,12 +47,14 @@ const actions: ActionTree<State, any> = {
             console.log(err.message);
           });
     },
-    CREATE_SURVEY: function({commit}) {
+    CREATE_SURVEY: function({commit}, {self}) {
         surveyService.createSurvey("New Survey :)")
         .then((response) => {
+            self.hiddenProgress();
             commit("CREATE_SURVEY_MUTATION", response.data);
         })
         .catch((error => {
+            self.hiddenProgress();
             console.log(error.statusText)
         }))
     },
@@ -72,6 +74,17 @@ const actions: ActionTree<State, any> = {
         .then((response) => {
             self.hiddenProgress();
             commit("RESTORE_SURVEY_MUTATION", {response: response, survey: survey});
+        })
+        .catch((error => {
+            self.hiddenProgress();
+            console.log(error.statusText)
+        }))
+    },
+    DELETE_SURVEY: function({commit}, {survey, self}) {
+        surveyService.deleteSurvey(survey.Id)
+        .then((response) => {
+            self.hiddenProgress();
+            commit("DELETE_SURVEY_MUTATION", {response: response, survey: survey});
         })
         .catch((error => {
             self.hiddenProgress();
@@ -105,6 +118,7 @@ const mutations: MutationTree<State> = {
         state.archiveSurveys = SurveyModel.fromJSONArray(surveys[1].data);
     },
     CREATE_SURVEY_MUTATION(state, survey) {
+        survey.Image = "http://www.redcresearch.ie/wp-content/uploads/2015/12/14.png";
         state.activeSurveys.unshift(survey);
     },
     ARCHIVE_SURVEY_MUTATION(state, payload) {
@@ -116,6 +130,12 @@ const mutations: MutationTree<State> = {
     RESTORE_SURVEY_MUTATION(state, payload) {
         if (payload.response.statusText = "OK") {
             state.activeSurveys.unshift(payload.survey);
+            state.archiveSurveys = state.archiveSurveys.filter(e => e.Id !== payload.survey.Id);
+        }
+    },
+    DELETE_SURVEY_MUTATION(state, payload) {
+        if (payload.response.statusText = "OK") {
+            state.activeSurveys = state.activeSurveys.filter(e => e.Id !== payload.survey.Id);
             state.archiveSurveys = state.archiveSurveys.filter(e => e.Id !== payload.survey.Id);
         }
     },
