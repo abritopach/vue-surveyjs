@@ -4,12 +4,16 @@
             <v-icon class="white--text">arrow_back</v-icon>
         </v-btn>
         <v-toolbar-title class="white--text">Vue.js & Survey.js</v-toolbar-title>
-        <v-btn v-if="showFabCreate()" fab small color="red darken-1" bottom right absolute @click.native.stop="onClickCreateSurvey()">
-            <v-icon class="white--text">add</v-icon>
-        </v-btn>
-        <v-btn v-if="showFabResults()" fab small color="red darken-1" bottom right absolute @click.native.stop="onClickGetSurveyResults()">
-            <v-icon class="white--text">description</v-icon>
-        </v-btn>
+        <v-fab-transition>
+            <v-btn v-if="showFabCreate()" fab small color="red darken-1" bottom right absolute @click.native.stop="onClickCreateSurvey()">
+                <v-icon class="white--text">add</v-icon>
+            </v-btn>
+        </v-fab-transition>
+        <v-fab-transition>
+            <v-btn v-if="showFabResults()" fab small color="red darken-1" bottom right absolute @click.native.stop="onClickGetSurveyResults()">
+                <v-icon class="white--text">description</v-icon>
+            </v-btn>
+        </v-fab-transition>
         <app-dialog></app-dialog>
     </v-toolbar>
 </template>
