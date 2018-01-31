@@ -14,6 +14,8 @@ This project shows you how to:
     * Create new Survey using SurveyJS API dxsurvey.com/api (get request).
     * Show list with active surveys using SurveyJS API dxsurvey.com/api (get request).
     * Show list with archive surveys using SurveyJS API dxsurvey.com/api (get request).
+    * Delete survey using SurveyJS API dxsurvey.com/api (get request).
+    * Change survey name using SurveyJS API dxsurvey.com/api (get request).
     * Archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Restore an archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Get survey results using SurveyJS API dxsurvey.com/api (get request).
