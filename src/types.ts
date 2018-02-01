@@ -2,7 +2,8 @@
 export interface State {
     activeSurveys: SurveyModel[],
     archiveSurveys: SurveyModel[],
-    surveyResults: SurveyResultsModel[]
+    surveyResults: SurveyResultsModel[],
+    results: any[]
 }
 
 // Models

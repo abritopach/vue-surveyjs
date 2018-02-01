@@ -26,7 +26,19 @@
             <v-toolbar-title class="white--text">{{ dialog.title }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <chart-component></chart-component>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-card>
+                <v-list>
+                  <template v-for="(data, index) in chartData">
+                      <h5>Pregunta P{{index + 1}}</h5>
+                      <p>{{surveyResults[0].userAnswers[index].textQuestion}}</p>
+                      <chart-component :dataChart=data v-bind:key="generateUniqueKey(data)"></chart-component>
+                  </template>
+                </v-list>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </v-card-text>
       </v-card>
   </v-dialog>
@@ -37,8 +49,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import EventBus from '../../event.bus';
-import { Action } from 'vuex-class';
+import { State, Action } from 'vuex-class';
 import ChartComponent from '../Chart.vue';
+import { SurveyResultsModel } from '../../types';
 
 @Component({
   components: {
@@ -57,11 +70,22 @@ export default class AppDialog extends Vue {
     showProgress: boolean = false;
     newName: string = '';
 
+    // Draw Chart.
+    @State('surveyResults') surveyResults: SurveyResultsModel[];
+    @State('results') results: any[];
+    chartData: any = [];
+    keys: any = [];
+    uid: number = 0
+
     constructor() {
         super();
 
         EventBus.$on('SHOW_DIALOG', (dialog: any) => {
             //console.log('dialog', dialog);
+            if (dialog.chartsDialog) {
+              this.formatDataChart();
+            }
+
             this.showDialog(dialog);
         });
     }
@@ -101,6 +125,28 @@ export default class AppDialog extends Vue {
       this.showProgress = false;
     }
 
+    formatDataChart() {
+      this.chartData = [];
+      if (this.results.length > 0) {
+          this.keys = this.surveyResults[0].userAnswers.map((val: any, key: any) => {return val['textQuestion']});
+          // Format Data to chart visualization.
+          for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
+      }
+    }
+
+    groupResultsByQuestion(index: any) {
+		  let keys = this.keys;
+      let res = this.results.reduce(function(res, currentValue) {
+        res.push(currentValue[keys[index]]);
+        return res;
+      }, []);
+      this.chartData.push(res);
+      //console.log(this.chartData);
+    }
+
+    generateUniqueKey(obj: any) {
+      return obj.__ob__.dep.id;
+    } 
 };
 </script>
 <style>

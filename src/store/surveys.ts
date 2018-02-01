@@ -5,7 +5,8 @@ import { surveyService } from '../services/survey.service';
 const state: State = {
     activeSurveys: [],
     archiveSurveys: [],
-    surveyResults: []
+    surveyResults: [],
+    results: []
 }
 
 const getters: GetterTree<State, any> = {
@@ -157,6 +158,7 @@ const mutations: MutationTree<State> = {
         }
     },
     FETCH_SURVEY_RESULTS_MUTATION(state, results) {
+        state.results = results.Data;
         state.surveyResults = SurveyResultsModel.fromJSONArray(results.Data);
     },
 }
