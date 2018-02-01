@@ -19,7 +19,7 @@
                 <v-icon>arrow_drop_down</v-icon>
                 <v-icon>close</v-icon>
             </v-btn>
-            <v-btn fab dark small color="red darken-1">
+            <v-btn fab dark small color="red darken-1" @click.native.stop="showCharts()">
                 <v-icon>poll</v-icon>
             </v-btn>
             <v-btn fab dark small color="red darken-1">
@@ -68,7 +68,7 @@ export default class Toolbar extends Vue {
 
     onClickCreateSurvey() {
         //console.log('onClickCreateSurvey');
-        EventBus.$emit('SHOW_DIALOG', {title: "Create Survey", message: "¿Are you sure to create new survey?", action: "create", show: true});
+        EventBus.$emit('SHOW_DIALOG', {title: "Create Survey", message: "¿Are you sure to create new survey?", action: "create", simpleDialog: true});
     }
 
     onClickGetSurveyResults() {
@@ -80,6 +80,11 @@ export default class Toolbar extends Vue {
     onClickBackButton() {
         //console.log("onClickBackButton");
         this.$router.go(-1);
+    }
+
+    showCharts() {
+        //console.log("showCharts");
+        EventBus.$emit('SHOW_DIALOG', {title: "Charts", action: "charts", fullscreen: true, chartsDialog: true});
     }
 };
 </script>

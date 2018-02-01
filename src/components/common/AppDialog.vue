@@ -1,7 +1,8 @@
 <template>
-    <v-dialog v-model="flagDialog" max-width="300px">
+    <v-dialog v-model="flagDialog" :fullscreen=dialog.fullscreen max-width="300px">
       <v-progress-circular indeterminate color="primary" v-if="showProgress"></v-progress-circular>
-      <v-card>
+      <!-- Simple Dialog content. -->
+      <v-card v-if="dialog.simpleDialog">
         <v-card-title class="headline">
           {{ dialog.title }}
         </v-card-title>
@@ -16,17 +17,35 @@
         <v-btn class="teal accent-3" flat @click.stop="onClickAccept()">ACCEPT</v-btn>
         </v-card-actions>
       </v-card>
+      <!-- Charts Dialog content. -->
+      <v-card v-if="dialog.chartsDialog">
+        <v-toolbar class="teal accent-3">
+            <v-btn icon @click.native="flagDialog=false" dark>
+              <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title class="white--text">{{ dialog.title }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <chart-component></chart-component>
+        </v-card-text>
+      </v-card>
   </v-dialog>
 </template>
 
 <script lang="ts">
 
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import EventBus from '../../event.bus'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import EventBus from '../../event.bus';
 import { Action } from 'vuex-class';
+import ChartComponent from '../Chart.vue';
 
-@Component
+@Component({
+  components: {
+    // Add a reference to the component in the components property.
+    ChartComponent
+  }
+})
 export default class AppDialog extends Vue {
     flagDialog: boolean = false;
     @Action('CREATE_SURVEY') actionCreateSurvey: any;
