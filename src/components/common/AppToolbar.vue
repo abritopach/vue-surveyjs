@@ -14,6 +14,21 @@
                 <v-icon class="white--text">description</v-icon>
             </v-btn>
         </v-fab-transition>
+        <v-speed-dial v-model="fab" v-if="showSpeedDial()" bottom right absolute direction="bottom" transition="slide-y-reverse-transition">
+            <v-btn slot="activator" color="red darken-1" dark fab small v-model="fab">
+                <v-icon>arrow_drop_down</v-icon>
+                <v-icon>close</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="red darken-1">
+                <v-icon>poll</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="red darken-1">
+                <v-icon>http</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="red darken-1">
+                <v-icon>file_download</v-icon>
+            </v-btn>
+        </v-speed-dial>
         <app-dialog></app-dialog>
     </v-toolbar>
 </template>
@@ -33,6 +48,8 @@ import EventBus from '../../event.bus'
 })
 export default class Toolbar extends Vue {
 
+    fab: boolean = false;
+
     showBackButton() {
         return this.$route.meta.showBackButton;
     }
@@ -43,6 +60,10 @@ export default class Toolbar extends Vue {
 
     showFabResults() {
         return this.$route.meta.showFabResults;
+    }
+
+    showSpeedDial() {
+        return this.$route.meta.showSpeedDial;
     }
 
     onClickCreateSurvey() {
@@ -63,4 +84,10 @@ export default class Toolbar extends Vue {
 };
 </script>
 <style>
+    .speed-dial--bottom.speed-dial--absolute {
+        bottom: 0;
+    }
+    .speed-dial--right {
+        right: 8px;
+    }
 </style>

@@ -24,7 +24,7 @@ export default new Router({
       path: '/surveyResults/:surveyId',
       name: 'Survey Results',
       component: SurveyResults,
-      meta: { showBackButton: true }
+      meta: { showBackButton: true, showSpeedDial: true }
     }
   ]
 })
