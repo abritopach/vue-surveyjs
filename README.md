@@ -2,7 +2,7 @@
 
 Sample project that shows how to integrate SurveyJS in Vue APP.
 
-This example is based on the example ["Integrate SurveyJS in Ionic"]()https://github.com/abritopach/ionic-surveyjs that I developed but adapted to Vue.js to practice my skills.
+This example is based on the example ["Integrate SurveyJS in Ionic"](https://github.com/abritopach/ionic-surveyjs) that I developed but adapted to Vue.js to practice my skills.
 
 NOTE: This project is currently under development until it reaches the same functionality as the ionic project.
 
@@ -20,6 +20,8 @@ This project shows you how to:
     * Restore an archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Get survey results using SurveyJS API dxsurvey.com/api (get request).
     * Show survey results using Chart.js (http://www.chartjs.org/).
+
+    ![App example](readme_resources/app.gif "App example")
 
 ## Configuration
 
