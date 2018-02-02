@@ -30,11 +30,12 @@
             <v-flex xs12 sm6 offset-sm3>
               <v-card>
                 <v-list>
-                  <template v-for="(data, index) in chartData">
-                      <h5>Pregunta P{{index + 1}}</h5>
-                      <p>{{surveyResults[0].userAnswers[index].textQuestion}}</p>
-                      <chart-component :dataChart=data v-bind:key="generateUniqueKey(data)"></chart-component>
-                  </template>
+                  <div v-for="(data, index) in chartData" v-bind:key="generateUniqueKey(data)">
+                    <h5>Pregunta P{{index + 1}}</h5>
+                    <p>{{keys[index]}}</p>
+                    <chart-component :dataChart=data></chart-component>
+                    <br>
+                  </div>
                 </v-list>
               </v-card>
             </v-flex>

@@ -25,9 +25,17 @@
       </v-layout>
       <v-data-table :headers="headers" :items="surveyResults" hide-actions class="elevation-1">
         <template slot="items" slot-scope="props">
+          <td @click="onClickDeleteResult(props.item)"><v-icon>delete</v-icon></td>
           <td class="text-xs-left" v-for="userAnswer in props.item.userAnswers" v-bind:key="userAnswer.idQuestion">{{ userAnswer.value }}</td>
           <td>{{ props.item.happendAt | formatDate}}</td>
         </template>
+        <!--
+        <template slot="no-data">
+          <v-alert :value="true" color="error" icon="warning">
+            Sorry, no data available.
+          </v-alert>
+        </template>
+        -->
       </v-data-table>
       <v-progress-circular indeterminate color="primary" v-if="showProgress"></v-progress-circular>
     </v-container>
@@ -51,7 +59,7 @@ export default class SurveyResults extends Vue {
 
   constructor() {
     super();
-
+    this.headers.push({text: 'Action', value: 'Action', align: 'left'});
     this.getSurveyResults();
 
     this.$store.watch((state) => state.surveyResults, (surveys) => {
@@ -70,6 +78,10 @@ export default class SurveyResults extends Vue {
     this.actionFetchSurveyResults({ idSurvey: this.$route.params.surveyId, self: this });
   }
 
+  onClickDeleteResult(item: any) {
+    //console.log("onClickDeleteResult", item);
+  }
+
   hiddenProgress() {
     this.showProgress = false;
   }
@@ -77,4 +89,7 @@ export default class SurveyResults extends Vue {
 };
 </script>
 <style>
+  .datatable thead th.column.sortable i {
+    display: none;
+  }
 </style>
