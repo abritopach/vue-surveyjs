@@ -21,7 +21,8 @@ This project shows you how to:
     * Get survey results using SurveyJS API dxsurvey.com/api (get request).
     * Show survey results using Chart.js (http://www.chartjs.org/).
 
-    ![App example](readme_resources/app.gif "App example")
+
+![App example](readme_resources/app.gif "App example")
 
 ## Configuration
 
