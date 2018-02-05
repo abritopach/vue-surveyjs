@@ -5,13 +5,31 @@ import { surveyService } from '../services/survey.service';
 const state: State = {
     activeSurveys: [],
     archiveSurveys: [],
+    selectedSurvey: { AllowAccessResult: false,
+        CreatedAt: "",
+        CreatorId: "",
+        Id: "",
+        IsArchived: false,
+        IsPublished: false,
+        Name: "",
+        PostId: "",
+        PublishId: "",
+        ResultId: "",
+        StoreIPAddress: false,
+        UseCookies: false,
+        UserId: "",
+        Image: ""
+    },
     surveyResults: [],
     results: []
 }
 
 const getters: GetterTree<State, any> = {
     activeSurveys: state => state.activeSurveys,
-    archiveSurveys: state => state.archiveSurveys
+    archiveSurveys: state => state.archiveSurveys,
+    selectedSurvey: state => state.selectedSurvey,
+    surveyResults: state => state.surveyResults,
+    results: state => state.results
 }
 
 const actions: ActionTree<State, any> = {
@@ -58,6 +76,10 @@ const actions: ActionTree<State, any> = {
             self.hiddenProgress();
             console.log(error.statusText)
         }))
+    },
+    SELECTED_SURVEY: function({commit}, {survey}) {
+        //console.log("SELECTED_SURVEY", survey);
+        commit("SELECTED_SURVEY_MUTATION", {survey: survey});
     },
     ARCHIVE_SURVEY: function({commit}, {survey, self}) {
         surveyService.archiveSurvey(survey.Id)
@@ -114,6 +136,18 @@ const actions: ActionTree<State, any> = {
             console.log(error.statusText)
         }))
     },
+    MAKE_SURVEY_RESULTS_PUBLIC: function({ commit }, {survey, self}) {
+        //console.log(survey);
+        surveyService.makeSurveyResultsPublic(survey.Id, !survey.AllowAccessResult)
+        .then((response) => {
+            self.hiddenProgress();
+            commit("MAKE_SURVEY_RESULTS_PUBLIC_MUTATION", response);
+        })
+        .catch((error => {
+            self.hiddenProgress();
+            console.log(error.statusText)
+        }))
+    }
 }
 
 const mutations: MutationTree<State> = {
@@ -128,6 +162,10 @@ const mutations: MutationTree<State> = {
     FETCH_SURVEYS_MUTATION(state, surveys) {
         state.activeSurveys = SurveyModel.fromJSONArray(surveys[0].data);
         state.archiveSurveys = SurveyModel.fromJSONArray(surveys[1].data);
+    },
+    SELECTED_SURVEY_MUTATION(state, payload) {
+        //console.log("SELECTED_SURVEY_MUTATION", payload.survey);
+        state.selectedSurvey = Object.assign({}, payload.survey);
     },
     CREATE_SURVEY_MUTATION(state, survey) {
         survey.Image = "http://www.redcresearch.ie/wp-content/uploads/2015/12/14.png";
@@ -152,7 +190,7 @@ const mutations: MutationTree<State> = {
         }
     },
     CHANGE_SURVEY_NAME_MUTATION(state, payload) {
-        console.log(payload);
+        //console.log(payload);
         if (payload.response.statusText = "OK") {
             payload.survey.Name = payload.newName;
         }
@@ -161,6 +199,13 @@ const mutations: MutationTree<State> = {
         state.results = results.Data;
         state.surveyResults = SurveyResultsModel.fromJSONArray(results.Data);
     },
+    MAKE_SURVEY_RESULTS_PUBLIC_MUTATION(state, response) {
+        //console.log(response);  
+        if (response.statusText = "OK") {
+            state.selectedSurvey.AllowAccessResult = !state.selectedSurvey.AllowAccessResult;
+            //console.log('MAKE_SURVEY_RESULTS_PUBLIC_MUTATION', state.selectedSurvey);
+        }  
+    }
 }
 
 export const surveys = {

@@ -49,6 +49,11 @@ class SurveyService {
     changeSurveyName(idSurvey: any, newName: any) {
         return axios.get(this.api + 'changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName));
     }
+
+    // Enable or disable the ability to view survey results by non autorized user via direct link.
+    makeSurveyResultsPublic(idSurvey: string, makeResultPublic: boolean) {
+        return axios.get(this.api + 'makeResultPublic/' + idSurvey + '?accessKey=' + this.accessKey + '&makeResultPublic=' + makeResultPublic);
+    }
 }
 
 // Export a singleton instance in the global namespace.

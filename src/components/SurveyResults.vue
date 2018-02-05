@@ -13,6 +13,9 @@
                         P{{index + 1}}: {{ userAnswer.textQuestion }}
                       </div>
                     </div>
+                    <div v-if="selectedSurvey.AllowAccessResult" class="white--text">
+                      URL pública resultados -> <a v-bind:href="publicSurveyURL" target="_blank">Acceder</a>
+                    </div>
                   </div>
                 </v-flex>
                 <v-flex xs5>
@@ -46,16 +49,19 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { State, Action } from 'vuex-class';
-import { SurveyResultsModel } from '../types';
+import { SurveyModel, SurveyResultsModel } from '../types';
+
 
 @Component
 export default class SurveyResults extends Vue {
 
   headers: any = [];
   @State('surveyResults') surveyResults: SurveyResultsModel[];
+  @State('selectedSurvey') selectedSurvey: SurveyModel;
   @Action('FETCH_SURVEY_RESULTS') actionFetchSurveyResults: any;
   showProgress: boolean = true;
   keys: any = [];
+  publicSurveyURL: string = 'https://surveyjs.io/Results/Survey/';
 
   constructor() {
     super();
@@ -70,7 +76,15 @@ export default class SurveyResults extends Vue {
           this.keys.forEach((val: any, index: any) => { this.headers.push({text: 'P' + (index + 1), value: 'P' + (index + 1), align: 'left'})});
           //console.log(this.headers);
       }
-    })
+    });
+
+  }
+
+  mounted() {
+    //console.log('mounted');
+    //console.log(this.selectedSurvey);
+    this.publicSurveyURL += this.selectedSurvey.Id;
+    //console.log(this.publicSurveyURL);
   }
 
   getSurveyResults() {

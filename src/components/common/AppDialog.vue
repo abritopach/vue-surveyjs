@@ -67,6 +67,7 @@ export default class AppDialog extends Vue {
     @Action('RESTORE_SURVEY') actionRestoreSurvey: any;
     @Action('DELETE_SURVEY') actionDeleteSurvey: any;
     @Action('CHANGE_SURVEY_NAME') actionChangeSurveyName: any;
+    @Action('MAKE_SURVEY_RESULTS_PUBLIC') actionMakePublic: any;
     dialog: any = {};
     showProgress: boolean = false;
     newName: string = '';
@@ -117,6 +118,10 @@ export default class AppDialog extends Vue {
           case "edit":
             //console.log(this.newName);
             this.actionChangeSurveyName({survey: this.dialog.survey, newName: this.newName, self: this});
+            break;
+          case "makePublic":
+            //console.log("makePublic", this.dialog.survey);
+            this.actionMakePublic({survey: this.dialog.survey, self: this});
             break;
         }
         this.flagDialog = false;

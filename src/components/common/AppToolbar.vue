@@ -22,7 +22,7 @@
             <v-btn fab dark small color="red darken-1" @click.native.stop="showCharts()">
                 <v-icon>poll</v-icon>
             </v-btn>
-            <v-btn fab dark small color="red darken-1">
+            <v-btn fab dark small color="red darken-1" @click.native.stop="makeSurveyResultsPublic()">
                 <v-icon>http</v-icon>
             </v-btn>
             <v-btn fab dark small color="red darken-1">
@@ -35,10 +35,12 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import AppDialog from './AppDialog.vue'
-import EventBus from '../../event.bus'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import AppDialog from './AppDialog.vue';
+import EventBus from '../../event.bus';
+import { State } from 'vuex-class';
+import { SurveyModel } from '../../types';
 
 @Component({
   components: {
@@ -49,6 +51,7 @@ import EventBus from '../../event.bus'
 export default class Toolbar extends Vue {
 
     fab: boolean = false;
+    @State('selectedSurvey') selectedSurvey: SurveyModel;
 
     showBackButton() {
         return this.$route.meta.showBackButton;
@@ -85,6 +88,17 @@ export default class Toolbar extends Vue {
     showCharts() {
         //console.log("showCharts");
         EventBus.$emit('SHOW_DIALOG', {title: "Charts", action: "charts", fullscreen: true, chartsDialog: true});
+    }
+
+    makeSurveyResultsPublic() {
+        //console.log(this.selectedSurvey);
+        let title = 'Grant Access';
+        let message = 'Your Survey results can be accessible via direct Url. ¿Are you sure to grant access?';
+        if (this.selectedSurvey.AllowAccessResult) {
+            title = 'Disable Access';
+            message = 'Your Survey results can not be accessible via direct Url. ¿Are you sure to disable access?';
+        }
+        EventBus.$emit('SHOW_DIALOG', {title: title, message: message, action: "makePublic", survey: this.selectedSurvey, simpleDialog: true});
     }
 };
 </script>

@@ -80,6 +80,7 @@ export default class Home extends Vue {
   //@Getter('activeSurveys') activeSurveys: Surveys[];
   //@Action('FETCH_ACTIVE_SURVEYS') actionFetchActiveSurveys: any;
   //@Action('FETCH_ARCHIVE_SURVEYS') actionFetchArchiveSurveys: any;
+  @Action('SELECTED_SURVEY') actionSelectedSurvey: any;
   @Action('FETCH_SURVEYS') actionFetchSurveys: any;
   actionsActiveSurveys: any = [];
   actionsArchiveSurveys: any = [];
@@ -138,6 +139,7 @@ export default class Home extends Vue {
 
   selectedSurvey(item: any) {
     //console.log(item);
+    this.actionSelectedSurvey({ survey: item });
     this.$router.push({ path: '/surveyDetails/' + item.Id})
   }
 

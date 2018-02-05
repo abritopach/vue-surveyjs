@@ -2,9 +2,17 @@
 export interface State {
     activeSurveys: SurveyModel[],
     archiveSurveys: SurveyModel[],
+    selectedSurvey: SurveyModel,
     surveyResults: SurveyResultsModel[],
     results: any[]
 }
+
+const defaultImages = [
+    "https://flexsurveys.com/wp-content/uploads/FlexSurveysEmployeeEngagementSurvey-Trans.png",
+    "https://static.e-encuesta.com/wp-content/uploads/satisfaccion-cliente-v6.png",
+    "http://www.redcresearch.ie/wp-content/uploads/2015/12/14.png",
+    "http://www.redcresearch.ie/wp-content/uploads/2015/12/30.png"
+];
 
 // Models
 export class SurveyModel {
@@ -23,13 +31,6 @@ export class SurveyModel {
     UserId: string;
     Image: string;
 
-    defaultImages = [
-        "https://flexsurveys.com/wp-content/uploads/FlexSurveysEmployeeEngagementSurvey-Trans.png",
-        "https://static.e-encuesta.com/wp-content/uploads/satisfaccion-cliente-v6.png",
-        "http://www.redcresearch.ie/wp-content/uploads/2015/12/14.png",
-        "http://www.redcresearch.ie/wp-content/uploads/2015/12/30.png"
-    ];
-
      // Copy constructor.
      constructor(obj: SurveyModel) {
         this.AllowAccessResult = obj['AllowAccessResult'];
@@ -45,7 +46,7 @@ export class SurveyModel {
         this.StoreIPAddress = obj['StoreIPAddress'];
         this.UseCookies = obj['UseCookies'];
         this.UserId = obj['UserId'];
-        this.Image = obj['Image'] || this.defaultImages[SurveyModel.getRandomNumber()];
+        this.Image = obj['Image'] || defaultImages[SurveyModel.getRandomNumber()];
     }
 
     // New static method.
