@@ -33,7 +33,7 @@
                   <div v-for="(data, index) in chartData" v-bind:key="generateUniqueKey(data)">
                     <h5>Pregunta P{{index + 1}}</h5>
                     <p>{{keys[index]}}</p>
-                    <chart-component :dataChart=data></chart-component>
+                    <chart-component :chartData=data></chart-component>
                     <br>
                   </div>
                 </v-list>

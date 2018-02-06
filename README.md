@@ -19,7 +19,9 @@ This project shows you how to:
     * Archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Restore an archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Get survey results using SurveyJS API dxsurvey.com/api (get request).
+    * Enable or disable the ability to view survey results by non autorized user via direct link using SurveyJS API dxsurvey.com/api (get request).
     * Show survey results using Chart.js (http://www.chartjs.org/).
+    * Download survey resulst CSV in Desktop.
 
 
 ![App example](readme_resources/app.gif "App example")

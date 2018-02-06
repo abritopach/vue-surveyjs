@@ -6,23 +6,22 @@
 
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 import { Chart } from 'chart.js';
 
-@Component({
-     props: ['dataChart'],
-})
+@Component
 export default class ChartComponent extends Vue {
+
+    @Prop() chartData: any[];
     private static defaultBackgroundColor: string[] = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)',
     'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
     private static defaultHoverBackgroundColor: string[] = ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB", "#FFCE56"];
     backgroundColor: string[] = [];
     hoverBackgroundColor: string[] = [];
-    chartData: any = [];
 
     mounted() {
-        this.chartData = this.$props.dataChart;
-        
-        // Draw chart
+         
+        // Draw chart.
         if (typeof this.chartData != 'undefined') {
             this.setChartColors();
             this.getLabels();

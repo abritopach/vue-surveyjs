@@ -25,7 +25,7 @@
             <v-btn fab dark small color="red darken-1" @click.native.stop="makeSurveyResultsPublic()">
                 <v-icon>http</v-icon>
             </v-btn>
-            <v-btn fab dark small color="red darken-1">
+            <v-btn fab dark small color="red darken-1" @click.native.stop="downloadResults()">
                 <v-icon>file_download</v-icon>
             </v-btn>
         </v-speed-dial>
@@ -40,7 +40,8 @@ import Component from 'vue-class-component';
 import AppDialog from './AppDialog.vue';
 import EventBus from '../../event.bus';
 import { State } from 'vuex-class';
-import { SurveyModel } from '../../types';
+import { SurveyModel, SurveyResultsModel } from '../../types';
+import * as papa from 'papaparse';
 
 @Component({
   components: {
@@ -52,6 +53,10 @@ export default class Toolbar extends Vue {
 
     fab: boolean = false;
     @State('selectedSurvey') selectedSurvey: SurveyModel;
+    @State('surveyResults') surveyResults: SurveyResultsModel[];
+    @State('results') results: any[];
+    keys: any = [];
+    chartData: any = [];
 
     showBackButton() {
         return this.$route.meta.showBackButton;
@@ -99,6 +104,36 @@ export default class Toolbar extends Vue {
             message = 'Your Survey results can not be accessible via direct Url. ¿Are you sure to disable access?';
         }
         EventBus.$emit('SHOW_DIALOG', {title: title, message: message, action: "makePublic", survey: this.selectedSurvey, simpleDialog: true});
+    }
+
+    downloadResults() {
+
+        this.keys = this.surveyResults[0].userAnswers.map((val: any, key: any) => {return val['textQuestion']});
+        for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
+
+        let csv = papa.unparse({
+			fields: this.keys,
+			data: this.chartData
+        });
+	   
+        // Dummy implementation for Desktop download purpose.
+        // Sent the UTF-8 header for the download process.
+        let blob = new Blob(["\ufeff", csv]);
+        let a = window.document.createElement("a");
+        a.href = window.URL.createObjectURL(blob);
+        a.download = "survey-results.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    groupResultsByQuestion(index: any) {
+		let keys = this.keys;
+        let res = this.results.reduce(function(res, currentValue) {
+            res.push(currentValue[keys[index]]);
+            return res;
+        }, []);
+        this.chartData.push(res);
     }
 };
 </script>
