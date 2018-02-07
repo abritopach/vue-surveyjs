@@ -4,7 +4,7 @@
     <!-- Render the Toolbar component. -->
     <app-toolbar></app-toolbar>
     <v-card-text>
-      <img src="./assets/logo.png" width="200" height="200" class="text-xs-center">
+      <img src="./assets/logo.png" width="418" height="418" class="text-xs-center">
     </v-card-text>
     <h1>{{ msg }}</h1>
     <router-view></router-view>
