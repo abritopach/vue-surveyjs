@@ -165,7 +165,9 @@ const mutations: MutationTree<State> = {
     },
     SELECTED_SURVEY_MUTATION(state, payload) {
         //console.log("SELECTED_SURVEY_MUTATION", payload.survey);
-        state.selectedSurvey = Object.assign({}, payload.survey);
+        //state.selectedSurvey = Object.assign({}, payload.survey);
+        state.selectedSurvey = {... payload.survey}
+        //console.log(state.selectedSurvey);
     },
     CREATE_SURVEY_MUTATION(state, survey) {
         survey.Image = "http://www.redcresearch.ie/wp-content/uploads/2015/12/14.png";
