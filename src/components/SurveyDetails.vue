@@ -1,8 +1,7 @@
 <template>
-  <!--<survey-component></survey-component>-->
-  <div id="surveyContainer">
+  <div>
     <p>Survey Details</p>
-    <!--<survey :survey="survey"></survey>-->
+    <survey :survey="survey"></survey>
   </div>
 </template>
 
@@ -11,15 +10,13 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 //import { Prop } from 'vue-property-decorator'
-//import SurveyComponent from './SurveyComponent.vue'
-//import * as SurveyVue from  'survey-vue'
-//let Survey = SurveyVue.Survey
+import * as SurveyVue from  'survey-vue'
+let Survey = SurveyVue.Survey
 
 @Component({
   name: 'surveyContainer',
   components: {
     // Add a reference to the component in the components property.
-    //SurveyComponent
     //Survey
   }
 })
@@ -31,14 +28,18 @@ export default class SurveyDetails extends Vue {
   constructor() {
     super();
     this.getSurveyId();
-    //this.showSurvey();
+    console.log(Survey);
+    this.showSurvey();
   }
 
   getSurveyId() {
     console.log(this.$route.params.surveyId);
   }
 
-/*
+  mounted() {
+    console.log('mounted');
+  }
+
   showSurvey() {
     console.log("showSurvey");
 
@@ -147,10 +148,9 @@ export default class SurveyDetails extends Vue {
           }]
         }]
     };
-    this.pepe = new SurveyVue.SurveyModel(surveyJSON);
-    console.log(this.pepe);
+    this.survey = new SurveyVue.SurveyModel(surveyJSON);
+    console.log(this.survey);
   }
-  */
 
 };
 </script>

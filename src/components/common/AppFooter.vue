@@ -19,4 +19,8 @@ export default class AppFooter extends Vue {
 };
 </script>
 <style>
+  .footer {
+    padding-left: 5px!important;
+    padding-right: 5px!important;
+  }
 </style>

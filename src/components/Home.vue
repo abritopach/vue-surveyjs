@@ -6,7 +6,7 @@
         <v-list two-line subheader>
             <v-subheader inset>Active surveys</v-subheader>
             <v-list-group v-bind:key="item.Id" v-for="item in activeSurveys">
-              <v-list-tile avatar slot="item" @click="">
+              <v-list-tile avatar slot="item" @click.prevent>
               <!--<v-list-tile avatar v-bind:key="item.Id" v-for="item in activeSurveys" @click="selectedSurvey(item)">-->
                 <v-list-tile-avatar>
                   <img v-bind:src="item.Image">
@@ -19,7 +19,7 @@
                   <v-icon>keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
               </v-list-tile>
-              <v-list-tile v-for="action in actionsActiveSurveys" v-bind:key="action.title" @click="">
+              <v-list-tile v-for="action in actionsActiveSurveys" v-bind:key="action.title" @click.prevent>
                 <v-list-tile-content>
                   <v-list-tile-title @click="onClickAction(action.action, item)">{{ action.title }}</v-list-tile-title>
                 </v-list-tile-content>
@@ -33,7 +33,7 @@
         <v-list two-line subheader>
             <v-subheader inset>Archive surveys</v-subheader>
             <v-list-group v-bind:key="item.Id" v-for="item in archiveSurveys">
-              <v-list-tile avatar slot="item" @click="">
+              <v-list-tile avatar slot="item" @click.prevent>
                 <v-list-tile-avatar>
                   <img v-bind:src="item.Image">
                 </v-list-tile-avatar>
@@ -45,7 +45,7 @@
                   <v-icon>keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
               </v-list-tile>
-               <v-list-tile v-for="action in actionsArchiveSurveys" v-bind:key="action.title" @click="">
+               <v-list-tile v-for="action in actionsArchiveSurveys" v-bind:key="action.title" @click.prevent>
                 <v-list-tile-content @click="onClickAction(action.action, item)">
                   <v-list-tile-title>{{ action.title }}</v-list-tile-title>
                 </v-list-tile-content>
