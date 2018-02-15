@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="surveyContainer">
     <p>Survey Details</p>
     <survey :survey="survey"></survey>
   </div>
@@ -10,6 +10,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component';
 import * as SurveyVue from  'survey-vue';
+import { SurveyWindowModel, dxSurveyService, SurveyModel } from 'survey-vue';
 // let Survey = SurveyVue.Survey;
 // console.log(Survey);
 
@@ -136,11 +137,28 @@ export default class SurveyDetails extends Vue {
           }]
         }]
     };
-    this.survey = new SurveyVue.SurveyModel(surveyJSON);
+
+    /*
+    let surveyJSON = {
+      surveyId: this.$route.params.surveyId
+    };
+    */
+
+    SurveyVue.StylesManager.applyTheme("default");
+    // SurveyVue.surveyLocalization.currentLocale = "es";
+
+    this.survey = (window as any)['survey'] = new SurveyVue.SurveyModel(surveyJSON);
     // console.log(SurveyVue.surveyCss.getCss());
     this.survey.css = SurveyVue.surveyCss.getCss();
     // console.log(this.survey);
+    
   }
+
+  /*
+  mounted() {
+    console.log('mounted');
+  }
+  */
 
 };
 </script>

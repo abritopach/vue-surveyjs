@@ -41,6 +41,7 @@ import AppDialog from './AppDialog.vue';
 import EventBus from '../../event.bus';
 import { State } from 'vuex-class';
 import { SurveyModel, SurveyResultsModel } from '../../types';
+import { Utils }  from '../../utils/utils';
 import * as papa from 'papaparse';
 
 @Component({
@@ -108,8 +109,9 @@ export default class Toolbar extends Vue {
 
     downloadResults() {
 
-        this.keys = this.surveyResults[0].userAnswers.map((val: any, key: any) => {return val['textQuestion']});
-        for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
+        let utils = new Utils();
+        this.keys = utils.getKeys(this.surveyResults);
+        this.chartData = utils.formatDataChart(this.results, this.surveyResults);
 
         let csv = papa.unparse({
 			fields: this.keys,
@@ -125,15 +127,6 @@ export default class Toolbar extends Vue {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-    }
-
-    groupResultsByQuestion(index: any) {
-		let keys = this.keys;
-        let res = this.results.reduce(function(res, currentValue) {
-            res.push(currentValue[keys[index]]);
-            return res;
-        }, []);
-        this.chartData.push(res);
     }
 };
 </script>

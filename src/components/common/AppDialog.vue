@@ -53,6 +53,7 @@ import EventBus from '../../event.bus';
 import { State, Action } from 'vuex-class';
 import ChartComponent from '../Chart.vue';
 import { SurveyResultsModel } from '../../types';
+import { Utils }  from '../../utils/utils';
 
 @Component({
   components: {
@@ -85,7 +86,7 @@ export default class AppDialog extends Vue {
         EventBus.$on('SHOW_DIALOG', (dialog: any) => {
             //console.log('dialog', dialog);
             if (dialog.chartsDialog) {
-              this.formatDataChart();
+              this.showChart();
             }
 
             this.showDialog(dialog);
@@ -131,28 +132,15 @@ export default class AppDialog extends Vue {
       this.showProgress = false;
     }
 
-    formatDataChart() {
-      this.chartData = [];
-      if (this.results.length > 0) {
-          this.keys = this.surveyResults[0].userAnswers.map((val: any, key: any) => {return val['textQuestion']});
-          // Format Data to chart visualization.
-          for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
-      }
-    }
-
-    groupResultsByQuestion(index: any) {
-		  let keys = this.keys;
-      let res = this.results.reduce(function(res, currentValue) {
-        res.push(currentValue[keys[index]]);
-        return res;
-      }, []);
-      this.chartData.push(res);
-      //console.log(this.chartData);
+    showChart() {
+      let utils = new Utils();
+      this.chartData = utils.formatDataChart(this.results, this.surveyResults);
     }
 
     generateUniqueKey(obj: any) {
       return obj.__ob__.dep.id;
     } 
+ 
 };
 </script>
 <style>
