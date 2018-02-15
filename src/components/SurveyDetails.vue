@@ -8,27 +8,19 @@
 <script lang="ts" >
 
 import Vue from 'vue'
-import Component from 'vue-class-component'
-//import { Prop } from 'vue-property-decorator'
-import * as SurveyVue from  'survey-vue'
-let Survey = SurveyVue.Survey
+import Component from 'vue-class-component';
+import * as SurveyVue from  'survey-vue';
+// let Survey = SurveyVue.Survey;
+// console.log(Survey);
 
-@Component({
-  name: 'surveyContainer',
-  components: {
-    // Add a reference to the component in the components property.
-    //Survey
-  }
-})
+@Component
 export default class SurveyDetails extends Vue {
 
-  //@Prop()
   survey: any;
 
   constructor() {
     super();
     this.getSurveyId();
-    console.log(Survey);
     this.showSurvey();
   }
 
@@ -36,12 +28,8 @@ export default class SurveyDetails extends Vue {
     console.log(this.$route.params.surveyId);
   }
 
-  mounted() {
-    console.log('mounted');
-  }
-
   showSurvey() {
-    console.log("showSurvey");
+    // console.log("showSurvey");
 
     let surveyJSON = { title: 'Product Feedback Survey Example', showProgressBar: 'top', pages: [
         {
@@ -149,7 +137,9 @@ export default class SurveyDetails extends Vue {
         }]
     };
     this.survey = new SurveyVue.SurveyModel(surveyJSON);
-    console.log(this.survey);
+    // console.log(SurveyVue.surveyCss.getCss());
+    this.survey.css = SurveyVue.surveyCss.getCss();
+    // console.log(this.survey);
   }
 
 };
