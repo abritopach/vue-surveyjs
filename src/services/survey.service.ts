@@ -3,8 +3,8 @@ import axios from 'axios';
 class SurveyService {
 
     private readonly api = 'https://dxsurvey.com/api/MySurveys/';
-    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
-    private readonly accessKey: string = "0049f79b12874db38781eef1b6f0b30c";
+    private readonly ownerId: string = encodeURI("ownerId");
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor() {
         console.log("Hello SurveyService");
