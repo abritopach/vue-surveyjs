@@ -58,6 +58,12 @@ export default class Toolbar extends Vue {
     @State('results') results: any[];
     keys: any = [];
     chartData: any = [];
+    utils: any;
+
+    constructor() {
+        super();
+        this.utils = new Utils();
+    }
 
     showBackButton() {
         return this.$route.meta.showBackButton;
@@ -109,9 +115,9 @@ export default class Toolbar extends Vue {
 
     downloadResults() {
 
-        let utils = new Utils();
-        this.keys = utils.getKeys(this.surveyResults);
-        this.chartData = utils.formatDataChart(this.results, this.surveyResults);
+        this.keys = this.utils.getKeys(this.surveyResults);
+        let args = [this.results, this.surveyResults];
+        this.chartData = this.utils.formatDataChart(...args);
 
         let csv = papa.unparse({
 			fields: this.keys,

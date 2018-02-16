@@ -165,5 +165,8 @@ export default class Home extends Vue {
 };
 </script>
 <style>
-  ul { list-style: none }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 </style>

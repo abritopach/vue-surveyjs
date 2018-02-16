@@ -78,11 +78,11 @@ export default class AppDialog extends Vue {
     @State('results') results: any[];
     chartData: any = [];
     keys: any = [];
-    uid: number = 0
+    utils: any;
 
     constructor() {
         super();
-
+        this.utils = new Utils();
         EventBus.$on('SHOW_DIALOG', (dialog: any) => {
             //console.log('dialog', dialog);
             if (dialog.chartsDialog) {
@@ -133,8 +133,8 @@ export default class AppDialog extends Vue {
     }
 
     showChart() {
-      let utils = new Utils();
-      this.chartData = utils.formatDataChart(this.results, this.surveyResults);
+      let args = [this.results, this.surveyResults];
+      this.chartData = this.utils.formatDataChart(...args);
     }
 
     generateUniqueKey(obj: any) {
