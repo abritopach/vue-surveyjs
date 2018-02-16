@@ -68,14 +68,14 @@ const actions: ActionTree<State, any> = {
     },
     CREATE_SURVEY: function({commit}, {self}) {
         surveyService.createSurvey("New Survey :)")
-        .then((response) => {
+        .then((response: any) => {
             self.hiddenProgress();
             commit("CREATE_SURVEY_MUTATION", response.data);
         })
-        .catch((error => {
+        .catch((error: any) => {
             self.hiddenProgress();
             console.log(error.statusText)
-        }))
+        })
     },
     SELECTED_SURVEY: function({commit}, {survey}) {
         //console.log("SELECTED_SURVEY", survey);
@@ -83,70 +83,70 @@ const actions: ActionTree<State, any> = {
     },
     ARCHIVE_SURVEY: function({commit}, {survey, self}) {
         surveyService.archiveSurvey(survey.Id)
-        .then((response) => {
+        .then((response: any) => {
             self.hiddenProgress();
             commit("ARCHIVE_SURVEY_MUTATION", {response: response, survey: survey});
         })
-        .catch((error => {
+        .catch((error: any) => {
             self.hiddenProgress();
             console.log(error.statusText)
-        }))
+        })
     },
     RESTORE_SURVEY: function({commit}, {survey, self}) {
         surveyService.restoreSurvey(survey.Id)
-        .then((response) => {
+        .then((response: any) => {
             self.hiddenProgress();
             commit("RESTORE_SURVEY_MUTATION", {response: response, survey: survey});
         })
-        .catch((error => {
+        .catch((error: any) => {
             self.hiddenProgress();
             console.log(error.statusText)
-        }))
+        })
     },
     DELETE_SURVEY: function({commit}, {survey, self}) {
         surveyService.deleteSurvey(survey.Id)
-        .then((response) => {
+        .then((response: any) => {
             self.hiddenProgress();
             commit("DELETE_SURVEY_MUTATION", {response: response, survey: survey});
         })
-        .catch((error => {
+        .catch((error: any) => {
             self.hiddenProgress();
             console.log(error.statusText)
-        }))
+        })
     },
     CHANGE_SURVEY_NAME: function({commit}, {survey, newName, self}) {
         surveyService.changeSurveyName(survey.Id, newName)
-        .then((response) => {
+        .then((response: any) => {
             self.hiddenProgress();
             commit("CHANGE_SURVEY_NAME_MUTATION", {response: response, survey: survey, newName: newName});
         })
-        .catch((error => {
+        .catch((error: any) => {
             self.hiddenProgress();
             console.log(error.statusText)
-        }))
+        })
     },
     FETCH_SURVEY_RESULTS: function({ commit }, {idSurvey, self}) {
         surveyService.getSurveyResults(idSurvey)
-        .then((response) => {
+        .then((response: any) => {
             self.hiddenProgress();
             commit("FETCH_SURVEY_RESULTS_MUTATION", response.data);
         })
-        .catch((error => {
+        .catch((error: any) => {
             self.hiddenProgress();
             console.log(error.statusText)
-        }))
+        })
     },
     MAKE_SURVEY_RESULTS_PUBLIC: function({ commit }, {survey, self}) {
         //console.log(survey);
         surveyService.makeSurveyResultsPublic(survey.Id, !survey.AllowAccessResult)
-        .then((response) => {
+        .then((response: any) => {
             self.hiddenProgress();
             commit("MAKE_SURVEY_RESULTS_PUBLIC_MUTATION", response);
         })
-        .catch((error => {
+        .catch((error: any) => {
             self.hiddenProgress();
             console.log(error.statusText)
-        }))
+        })
     }
 }
 

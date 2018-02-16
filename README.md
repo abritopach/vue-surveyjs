@@ -21,6 +21,7 @@ This project shows you how to:
     * Get survey results using SurveyJS API dxsurvey.com/api (get request).
     * Enable or disable the ability to view survey results by non autorized user via direct link using SurveyJS API dxsurvey.com/api (get request).
     * Show survey results using Chart.js (http://www.chartjs.org/).
+    * Added Timeout for HTTP requests to the API, and then throw an error if the request fails.
     * Download survey resulst CSV in Desktop.
 
 
