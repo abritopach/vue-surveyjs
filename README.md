@@ -18,6 +18,7 @@ This project shows you how to:
     * Change survey name using SurveyJS API dxsurvey.com/api (get request).
     * Archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Restore an archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
+    * Show survey details.
     * Get survey results using SurveyJS API dxsurvey.com/api (get request).
     * Enable or disable the ability to view survey results by non autorized user via direct link using SurveyJS API dxsurvey.com/api (get request).
     * Show survey results using Chart.js (http://www.chartjs.org/).

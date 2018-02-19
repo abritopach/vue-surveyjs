@@ -1,7 +1,16 @@
 <template>
   <div class="surveyContainer">
-    <p>Survey Details</p>
-    <survey :survey="survey"></survey>
+    
+     <v-layout row>
+      <v-flex xs12>
+        <v-card color="blue-grey darken-2" class="white--text">
+          <v-card-title primary-title>
+            <div class="headline">Survey Details</div>
+            <survey v-if="survey != null" :survey="survey"></survey>
+          </v-card-title>
+        </v-card>
+      </v-flex>
+     </v-layout>
   </div>
 </template>
 
@@ -9,15 +18,12 @@
 
 import Vue from 'vue'
 import Component from 'vue-class-component';
-import * as SurveyVue from  'survey-vue';
-import { SurveyWindowModel, dxSurveyService, SurveyModel } from 'survey-vue';
-// let Survey = SurveyVue.Survey;
-// console.log(Survey);
+import * as SurveyVue from 'survey-vue';
 
 @Component
 export default class SurveyDetails extends Vue {
 
-  survey: any;
+  survey: any = null;
 
   constructor() {
     super();
@@ -32,6 +38,7 @@ export default class SurveyDetails extends Vue {
   showSurvey() {
     // console.log("showSurvey");
 
+  /*
     let surveyJSON = { title: 'Product Feedback Survey Example', showProgressBar: 'top', pages: [
         {
           questions: [{
@@ -137,30 +144,29 @@ export default class SurveyDetails extends Vue {
           }]
         }]
     };
-
-    /*
-    let surveyJSON = {
-      surveyId: this.$route.params.surveyId
-    };
     */
 
-    SurveyVue.StylesManager.applyTheme("default");
-    // SurveyVue.surveyLocalization.currentLocale = "es";
+    // https://vuejs.org/v2/guide/reactivity.html
+    this.$nextTick(function () {
+        let surveyJSON = {
+          surveyId: this.$route.params.surveyId
+        };
 
-    this.survey = (window as any)['survey'] = new SurveyVue.SurveyModel(surveyJSON);
-    // console.log(SurveyVue.surveyCss.getCss());
-    this.survey.css = SurveyVue.surveyCss.getCss();
-    // console.log(this.survey);
+        SurveyVue.StylesManager.applyTheme("default");
+        SurveyVue.surveyLocalization.currentLocale = "es";
+
+        this.survey = (window as any)['survey'] = new SurveyVue.SurveyModel(surveyJSON);
+        // console.log(SurveyVue.surveyCss.getCss());
+        this.survey.css = SurveyVue.surveyCss.getCss();
+        // console.log(this.survey);
+    })
     
   }
-
-  /*
-  mounted() {
-    console.log('mounted');
-  }
-  */
 
 };
 </script>
 <style>
+  .sv_main.sv_default_css {
+    width: 100%;
+  }
 </style>
