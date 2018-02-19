@@ -66,7 +66,6 @@ export default class SurveyResults extends Vue {
   constructor() {
     super();
     this.headers.push({text: 'Action', value: 'Action', align: 'left'});
-    this.getSurveyResults();
 
     this.$store.watch((state) => state.surveyResults, (surveys) => {
       //console.log('surveyResults is changing');
@@ -81,15 +80,17 @@ export default class SurveyResults extends Vue {
   }
 
   mounted() {
-    //console.log('mounted');
-    //console.log(this.selectedSurvey);
+    // console.log('mounted');
+    // console.log(this.selectedSurvey);
     this.publicSurveyURL += this.selectedSurvey.Id;
-    //console.log(this.publicSurveyURL);
+    this.getSurveyResults();
+    // console.log(this.publicSurveyURL);
   }
 
   getSurveyResults() {
-    //console.log('getSurveyResults: ', this.$route.params.surveyId);
-    this.actionFetchSurveyResults({ idSurvey: this.$route.params.surveyId, self: this });
+    // console.log('getSurveyResults: ', this.$route.params.surveyId);
+    // console.log('getSurveyResults: ', this.selectedSurvey.Id);
+    this.actionFetchSurveyResults({ idSurvey: this.selectedSurvey.Id, self: this });
   }
 
   onClickDeleteResult(item: any) {

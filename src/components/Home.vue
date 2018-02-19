@@ -140,7 +140,8 @@ export default class Home extends Vue {
   selectedSurvey(item: any) {
     //console.log(item);
     this.actionSelectedSurvey({ survey: item });
-    this.$router.push({ path: '/surveyDetails/' + item.Id})
+    this.$router.push({ path: '/surveyDetails' })
+    // this.$router.push({ path: '/surveyDetails/' + item.Id})
   }
 
   onClickAction(action: any, survey: any) {

@@ -15,13 +15,13 @@ export default new Router({
       meta: { showBackButton: false, showFabCreate: true }
     },
     {
-      path: '/surveyDetails/:surveyId',
+      path: '/surveyDetails',
       name: 'Survey Details',
       component: SurveyDetails,
       meta: { showBackButton: true, showFabResults: true }
     },
     {
-      path: '/surveyResults/:surveyId',
+      path: '/surveyResults',
       name: 'Survey Results',
       component: SurveyResults,
       meta: { showBackButton: true, showSpeedDial: true }

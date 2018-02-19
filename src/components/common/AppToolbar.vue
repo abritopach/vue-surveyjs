@@ -89,7 +89,8 @@ export default class Toolbar extends Vue {
     onClickGetSurveyResults() {
         //console.log("onClickGetSurveyResults");
         //console.log(this.$route.params.surveyId);
-        this.$router.push({ path: `/surveyResults/${this.$route.params.surveyId}` });
+        this.$router.push({ path: '/surveyResults' });
+        // this.$router.push({ path: `/surveyResults/${this.$route.params.surveyId}` });
     }
 
     onClickBackButton() {

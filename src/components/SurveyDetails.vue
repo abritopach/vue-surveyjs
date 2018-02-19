@@ -18,22 +18,27 @@
 
 import Vue from 'vue'
 import Component from 'vue-class-component';
+import { State } from 'vuex-class';
+import { SurveyModel } from '../types';
 import * as SurveyVue from 'survey-vue';
 
 @Component
 export default class SurveyDetails extends Vue {
 
   survey: any = null;
+  @State('selectedSurvey') selectedSurvey: SurveyModel;
 
   constructor() {
     super();
-    this.getSurveyId();
+    // this.getSurveyId();
     this.showSurvey();
   }
 
+  /*
   getSurveyId() {
     console.log(this.$route.params.surveyId);
   }
+  */
 
   showSurvey() {
     // console.log("showSurvey");
@@ -149,8 +154,8 @@ export default class SurveyDetails extends Vue {
     // https://vuejs.org/v2/guide/reactivity.html
     this.$nextTick(function () {
         let surveyJSON = {
-          surveyId: this.$route.params.surveyId,
-          surveyPostId: 'a9cd1b88-8e41-40a2-9331-61ffc60f7060'
+          surveyId: this.selectedSurvey.Id,
+          surveyPostId: this.selectedSurvey.PostId
         };
 
         SurveyVue.StylesManager.applyTheme("default");
