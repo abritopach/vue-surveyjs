@@ -149,7 +149,8 @@ export default class SurveyDetails extends Vue {
     // https://vuejs.org/v2/guide/reactivity.html
     this.$nextTick(function () {
         let surveyJSON = {
-          surveyId: this.$route.params.surveyId
+          surveyId: this.$route.params.surveyId,
+          surveyPostId: 'a9cd1b88-8e41-40a2-9331-61ffc60f7060'
         };
 
         SurveyVue.StylesManager.applyTheme("default");
@@ -159,6 +160,11 @@ export default class SurveyDetails extends Vue {
         // console.log(SurveyVue.surveyCss.getCss());
         this.survey.css = SurveyVue.surveyCss.getCss();
         // console.log(this.survey);
+
+        // Save survey result when user click complete button.
+        this.survey.onComplete.add(function (result: any) {
+          console.log(JSON.stringify(result.data));
+        });
     })
     
   }
@@ -168,5 +174,9 @@ export default class SurveyDetails extends Vue {
 <style>
   .sv_main.sv_default_css {
     width: 100%;
+  }
+
+  .sv_body {
+    padding: 10px;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <v-footer class="teal accent-3">
+    <v-footer fixed class="teal accent-3">
     <div class="white--text">© {{ new Date().getFullYear() }}Adrián Brito Pacheco</div>
     <v-spacer></v-spacer>
     <div class="white--text">
