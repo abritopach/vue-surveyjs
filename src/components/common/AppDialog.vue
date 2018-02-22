@@ -84,7 +84,6 @@ export default class AppDialog extends Vue {
         super();
         this.utils = new Utils();
         EventBus.$on('SHOW_DIALOG', (dialog: any) => {
-            //console.log('dialog', dialog);
             if (dialog.chartsDialog) {
               this.showChart();
             }
@@ -99,8 +98,6 @@ export default class AppDialog extends Vue {
     }
 
     onClickAccept() {
-        //console.log("onClickAccept");
-        //console.log("action", this.action);
         this.showProgress = true;
         switch (this.dialog.action)
         {
@@ -117,11 +114,9 @@ export default class AppDialog extends Vue {
             this.actionDeleteSurvey({ survey: this.dialog.survey, self: this });
             break;
           case "edit":
-            //console.log(this.newName);
             this.actionChangeSurveyName({survey: this.dialog.survey, newName: this.newName, self: this});
             break;
           case "makePublic":
-            //console.log("makePublic", this.dialog.survey);
             this.actionMakePublic({survey: this.dialog.survey, self: this});
             break;
         }

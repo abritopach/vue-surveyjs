@@ -5,10 +5,10 @@ class SurveyService {
     private instance: any;
     private readonly baseURL = 'https://dxsurvey.com/api/MySurveys/';
     private readonly ownerId: string = encodeURI("ownerId");
-    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor() {
-        console.log("Hello SurveyService");
+        // console.log("Hello SurveyService");
         this.instance = axios.create({
             baseURL: this.baseURL,
             timeout: 5000,

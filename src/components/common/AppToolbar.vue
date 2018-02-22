@@ -82,29 +82,24 @@ export default class Toolbar extends Vue {
     }
 
     onClickCreateSurvey() {
-        //console.log('onClickCreateSurvey');
         EventBus.$emit('SHOW_DIALOG', {title: "Create Survey", message: "¿Are you sure to create new survey?", action: "create", simpleDialog: true});
     }
 
     onClickGetSurveyResults() {
-        //console.log("onClickGetSurveyResults");
         //console.log(this.$route.params.surveyId);
         this.$router.push({ path: '/surveyResults' });
         // this.$router.push({ path: `/surveyResults/${this.$route.params.surveyId}` });
     }
 
     onClickBackButton() {
-        //console.log("onClickBackButton");
         this.$router.go(-1);
     }
 
     showCharts() {
-        //console.log("showCharts");
         EventBus.$emit('SHOW_DIALOG', {title: "Charts", action: "charts", fullscreen: true, chartsDialog: true});
     }
 
     makeSurveyResultsPublic() {
-        //console.log(this.selectedSurvey);
         let title = 'Grant Access';
         let message = 'Your Survey results can be accessible via direct Url. ¿Are you sure to grant access?';
         if (this.selectedSurvey.AllowAccessResult) {

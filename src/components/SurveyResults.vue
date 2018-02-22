@@ -26,9 +26,14 @@
           </v-card>
         </v-flex>
       </v-layout>
-      <v-data-table :headers="headers" :items="surveyResults" hide-actions class="elevation-1">
+      <v-data-table :headers="headers" :items="surveyResults" :loading="showProgress" hide-actions class="elevation-1">
+        <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
         <template slot="items" slot-scope="props">
-          <td @click="onClickDeleteResult(props.item)"><v-icon>delete</v-icon></td>
+          <td>
+            <v-btn icon @click="onClickDeleteResult(props.item)">
+              <v-icon color="pink">delete</v-icon>
+            </v-btn>
+          </td>
           <td class="text-xs-left" v-for="userAnswer in props.item.userAnswers" v-bind:key="userAnswer.idQuestion">{{ userAnswer.value }}</td>
           <td>{{ props.item.happendAt | formatDate}}</td>
         </template>
@@ -40,7 +45,7 @@
         </template>
         -->
       </v-data-table>
-      <v-progress-circular indeterminate color="primary" v-if="showProgress"></v-progress-circular>
+      <!--<v-progress-circular indeterminate color="primary" v-if="showProgress"></v-progress-circular>-->
     </v-container>
 </template>
 
@@ -60,31 +65,23 @@ export default class SurveyResults extends Vue {
   @State('selectedSurvey') selectedSurvey: SurveyModel;
   @Action('FETCH_SURVEY_RESULTS') actionFetchSurveyResults: any;
   showProgress: boolean = true;
-  keys: any = [];
   publicSurveyURL: string = 'https://surveyjs.io/Results/Survey/';
 
   constructor() {
     super();
     this.headers.push({text: 'Action', value: 'Action', align: 'left'});
-
     this.$store.watch((state) => state.surveyResults, (surveys) => {
-      //console.log('surveyResults is changing');
-      //console.log(surveys);
       if (surveys.length > 0) {
-          this.keys = surveys[0].userAnswers.map((val: any, key: any) => {return val['textQuestion']});
-          this.keys.forEach((val: any, index: any) => { this.headers.push({text: 'P' + (index + 1), value: 'P' + (index + 1), align: 'left'})});
-          //console.log(this.headers);
+          surveys[0].userAnswers.forEach((val: any, index: any) => { this.headers.push({text: 'P' + (index + 1), value: 'P' + (index + 1), align: 'left'})});
+          this.headers.push({text: 'Datetime', value: 'Datetime', align: 'left'});
       }
     });
 
   }
 
   mounted() {
-    // console.log('mounted');
-    // console.log(this.selectedSurvey);
     this.publicSurveyURL += this.selectedSurvey.Id;
     this.getSurveyResults();
-    // console.log(this.publicSurveyURL);
   }
 
   getSurveyResults() {
@@ -94,7 +91,7 @@ export default class SurveyResults extends Vue {
   }
 
   onClickDeleteResult(item: any) {
-    //console.log("onClickDeleteResult", item);
+    // console.log("onClickDeleteResult", item);
   }
 
   hiddenProgress() {

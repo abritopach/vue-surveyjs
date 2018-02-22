@@ -7,7 +7,6 @@
             <v-subheader inset>Active surveys</v-subheader>
             <v-list-group v-bind:key="item.Id" v-for="item in activeSurveys">
               <v-list-tile avatar slot="item" @click.prevent>
-              <!--<v-list-tile avatar v-bind:key="item.Id" v-for="item in activeSurveys" @click="selectedSurvey(item)">-->
                 <v-list-tile-avatar>
                   <img v-bind:src="item.Image">
                 </v-list-tile-avatar>
@@ -72,14 +71,9 @@ import EventBus from '../event.bus';
 
 @Component
 export default class Home extends Vue {
-  //activeSurveys: any = [];
-  //archiveSurveys: any = [];
   showProgress: boolean = true;
   @State('activeSurveys') activeSurveys: SurveyModel[];
   @State('archiveSurveys') archiveSurveys: SurveyModel[];
-  //@Getter('activeSurveys') activeSurveys: Surveys[];
-  //@Action('FETCH_ACTIVE_SURVEYS') actionFetchActiveSurveys: any;
-  //@Action('FETCH_ARCHIVE_SURVEYS') actionFetchArchiveSurveys: any;
   @Action('SELECTED_SURVEY') actionSelectedSurvey: any;
   @Action('FETCH_SURVEYS') actionFetchSurveys: any;
   actionsActiveSurveys: any = [];
@@ -87,11 +81,6 @@ export default class Home extends Vue {
 
   constructor() {
     super();
-    //this.getActiveSurveys();
-    //this.getArchiveSurveys();
-    //this.getSurveys();
-    //this.actionFetchActiveSurveys();
-    //this.actionFetchArchiveSurveys();
     this.actionFetchSurveys({ self: this });
     this.actionsActiveSurveys = [
           { action: 'archive', title: 'Archive', icon: 'lock_outline'},
@@ -105,55 +94,23 @@ export default class Home extends Vue {
     ];
   }
 
-  /*
-  getSurveys() {
-    Promise.all([
-      surveyService.getActiveSurveys(),
-      surveyService.getArchiveSurveys()
-    ]).then(response => {
-      //console.log(response);
-      this.activeSurveys = response[0].data;
-      this.archiveSurveys = response[1].data;
-      this.showProgress = false;
-    });
-  }
-
-  getActiveSurveys() {
-    surveyService.getActiveSurveys().then(response => {
-      //console.log(response.data);
-      this.activeSurveys = response.data;
-      this.showProgress = false;
-    })
-  }
-
-  getArchiveSurveys() {
-    surveyService.getArchiveSurveys().then(response => {
-      //console.log(response.data);
-      this.archiveSurveys = response.data;
-    })
-    */
-
   hiddenProgress() {
     this.showProgress = false;
   }
 
   selectedSurvey(item: any) {
-    //console.log(item);
     this.actionSelectedSurvey({ survey: item });
     this.$router.push({ path: '/surveyDetails' })
     // this.$router.push({ path: '/surveyDetails/' + item.Id})
   }
 
   onClickAction(action: any, survey: any) {
-    //console.log("onClickAction", action, survey);
     let dialogConfig = this.dialogConfig(action);
     dialogConfig.survey = survey;
-    //console.log(dialogConfig);
     EventBus.$emit('SHOW_DIALOG', dialogConfig);
   }
 
   dialogConfig(action: any) {
-    //console.log(action);
     let options: any = {
       delete: {title: 'Delete Survey', message: '¿Are you sure to delete the survey?', action: "delete", simpleDialog: true},
       activate: {title: 'Activate Survey', message: '¿Are you sure to activate the survey?', action: "activate", simpleDialog: true},

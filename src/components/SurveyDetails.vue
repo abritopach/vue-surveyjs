@@ -41,7 +41,6 @@ export default class SurveyDetails extends Vue {
   */
 
   showSurvey() {
-    // console.log("showSurvey");
 
     this.setSurveyTheme();
 
