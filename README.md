@@ -6,7 +6,9 @@ This example is based on the example ["Integrate SurveyJS in Ionic"](https://git
 
 NOTE: This project is currently under development until it reaches the same functionality as the ionic project.
 
-Technologies: Vue.js, Vuetify.js, Vuex, Typescript
+Technologies: Vue.js, Vuetify.js, Vuex, Typescript, Survey.js
+
+![Technologies](readme_resources/technologies.png "Technologies")
 
 This project shows you how to:
 

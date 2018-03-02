@@ -6,7 +6,7 @@
       <div class="main">
         <v-card-text>
           <img v-if="$vuetify.breakpoint.xsOnly" src="./assets/logo.png" width="100%" height="100%" class="text-xs-center">
-          <img v-if="!$vuetify.breakpoint.xsOnly" src="./assets/logo.png" width="480" height="480" class="text-xs-center">
+          <img v-if="!$vuetify.breakpoint.xsOnly" src="./assets/logo.png" width="490" height="130" class="text-xs-center">
         </v-card-text>
         <h1>{{ msg }}</h1>
         <router-view></router-view>
