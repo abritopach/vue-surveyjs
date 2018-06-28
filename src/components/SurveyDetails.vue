@@ -26,7 +26,7 @@ import * as SurveyVue from 'survey-vue';
 export default class SurveyDetails extends Vue {
 
   survey: any = null;
-  @State('selectedSurvey') selectedSurvey: SurveyModel;
+  @State('selectedSurvey') selectedSurvey: any;
 
   constructor() {
     super();

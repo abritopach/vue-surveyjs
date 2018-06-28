@@ -53,9 +53,9 @@ import * as papa from 'papaparse';
 export default class Toolbar extends Vue {
 
     fab: boolean = false;
-    @State('selectedSurvey') selectedSurvey: SurveyModel;
-    @State('surveyResults') surveyResults: SurveyResultsModel[];
-    @State('results') results: any[];
+    @State('selectedSurvey') selectedSurvey: any;
+    @State('surveyResults') surveyResults: any;
+    @State('results') results: any;
     keys: any = [];
     chartData: any = [];
     utils: any;
@@ -110,7 +110,6 @@ export default class Toolbar extends Vue {
     }
 
     downloadResults() {
-
         this.keys = this.utils.getKeys(this.surveyResults);
         let args = [this.results, this.surveyResults];
         this.chartData = this.utils.formatDataChart(...args);

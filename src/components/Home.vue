@@ -5,8 +5,8 @@
         <!-- Active surveys. -->
         <v-list two-line subheader>
             <v-subheader inset>Active surveys</v-subheader>
-            <v-list-group v-bind:key="item.Id" v-for="item in activeSurveys">
-              <v-list-tile avatar slot="item" @click.prevent>
+            <v-list-group :key="item.Id" v-for="item in activeSurveys">
+              <v-list-tile avatar slot="activator" @click.prevent>
                 <v-list-tile-avatar>
                   <img v-bind:src="item.Image">
                 </v-list-tile-avatar>
@@ -14,9 +14,6 @@
                   <v-list-tile-title>{{item.Name}}</v-list-tile-title>
                   <v-list-tile-sub-title><v-icon>alarm</v-icon> {{item.CreatedAt | formatDate}}</v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-icon>keyboard_arrow_down</v-icon>
-                </v-list-tile-action>
               </v-list-tile>
               <v-list-tile v-for="action in actionsActiveSurveys" v-bind:key="action.title" @click.prevent>
                 <v-list-tile-content>
@@ -32,7 +29,7 @@
         <v-list two-line subheader>
             <v-subheader inset>Archive surveys</v-subheader>
             <v-list-group v-bind:key="item.Id" v-for="item in archiveSurveys">
-              <v-list-tile avatar slot="item" @click.prevent>
+              <v-list-tile avatar slot="activator" @click.prevent>
                 <v-list-tile-avatar>
                   <img v-bind:src="item.Image">
                 </v-list-tile-avatar>
@@ -40,9 +37,6 @@
                   <v-list-tile-title>{{item.Name}}</v-list-tile-title>
                   <v-list-tile-sub-title><v-icon>alarm</v-icon> {{item.CreatedAt | formatDate}}</v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-icon>keyboard_arrow_down</v-icon>
-                </v-list-tile-action>
               </v-list-tile>
                <v-list-tile v-for="action in actionsArchiveSurveys" v-bind:key="action.title" @click.prevent>
                 <v-list-tile-content @click="onClickAction(action.action, item)">
@@ -72,8 +66,8 @@ import EventBus from '../event.bus';
 @Component
 export default class Home extends Vue {
   showProgress: boolean = true;
-  @State('activeSurveys') activeSurveys: SurveyModel[];
-  @State('archiveSurveys') archiveSurveys: SurveyModel[];
+  @State('activeSurveys') activeSurveys: any;
+  @State('archiveSurveys') archiveSurveys: any;
   @Action('SELECTED_SURVEY') actionSelectedSurvey: any;
   @Action('FETCH_SURVEYS') actionFetchSurveys: any;
   actionsActiveSurveys: any = [];

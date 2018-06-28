@@ -74,8 +74,8 @@ export default class AppDialog extends Vue {
     newName: string = '';
 
     // Draw Chart.
-    @State('surveyResults') surveyResults: SurveyResultsModel[];
-    @State('results') results: any[];
+    @State('surveyResults') surveyResults: any;
+    @State('results') results: any;
     chartData: any = [];
     keys: any = [];
     utils: any;

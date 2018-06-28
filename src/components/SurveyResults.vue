@@ -61,8 +61,8 @@ import { SurveyModel, SurveyResultsModel } from '../types';
 export default class SurveyResults extends Vue {
 
   headers: any = [];
-  @State('surveyResults') surveyResults: SurveyResultsModel[];
-  @State('selectedSurvey') selectedSurvey: SurveyModel;
+  @State('surveyResults') surveyResults: any;
+  @State('selectedSurvey') selectedSurvey: any;
   @Action('FETCH_SURVEY_RESULTS') actionFetchSurveyResults: any;
   showProgress: boolean = true;
   publicSurveyURL: string = 'https://surveyjs.io/Results/Survey/';
