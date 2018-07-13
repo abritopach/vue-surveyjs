@@ -5,7 +5,7 @@ class SurveyService {
     private instance: any;
     private readonly baseURL = 'https://dxsurvey.com/api/MySurveys/';
     private readonly ownerId: string = encodeURI("ownerId");
-    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor() {
         // console.log("Hello SurveyService");
